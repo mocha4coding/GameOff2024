@@ -1,17 +1,56 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjb60q4axtorv"]
+[gd_scene load_steps=7 format=3 uid="uid://bjb60q4axtorv"]
 
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_w8hhe"]
+[ext_resource type="Script" path="res://scripts/camera_2d.gd" id="2_p1iw7"]
+[ext_resource type="Texture2D" uid="uid://3nv6b5mkffkh" path="res://assets/parallax/Layer 1.png" id="3_wjc0c"]
+[ext_resource type="Texture2D" uid="uid://cbbwyo16xdifv" path="res://assets/parallax/Layer 2.png" id="4_260kp"]
+[ext_resource type="Texture2D" uid="uid://btx1bmu3o53c8" path="res://assets/parallax/Layer 0.png" id="5_jvji4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_klt5n"]
-size = Vector2(5370, 166)
+size = Vector2(30747, 222)
 
 [node name="Playground" type="Node2D"]
+metadata/_edit_vertical_guides_ = [275.0]
 
 [node name="floor" type="StaticBody2D" parent="."]
+position = Vector2(1335, 197)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
-position = Vector2(69, 740)
+position = Vector2(-1293.5, 768)
 shape = SubResource("RectangleShape2D_klt5n")
 
 [node name="Player" parent="." instance=ExtResource("1_w8hhe")]
-position = Vector2(44, 576)
+position = Vector2(275, 632)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="-2" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = -2
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(3840, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/-2"]
+texture = ExtResource("3_wjc0c")
+centered = false
+
+[node name="-3" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = -3
+motion_scale = Vector2(0.15, 0.15)
+motion_mirroring = Vector2(3840, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/-3"]
+texture = ExtResource("4_260kp")
+centered = false
+
+[node name="-1" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(3840, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/-1"]
+texture = ExtResource("5_jvji4")
+centered = false
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("TargetNode")]
+anchor_mode = 0
+script = ExtResource("2_p1iw7")
+TargetNode = NodePath("../Player")
