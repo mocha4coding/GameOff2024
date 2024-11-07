@@ -1,10 +1,12 @@
 extends CharacterBody2D
 
-
-const SPEED = 300.0
+class_name Player
+const SPEED = 450.0
 const JUMP_VELOCITY = -400.0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+const MAX_HEALTH = 100
 
+@export var healthBar: Node2D = null
 enum playerMotionStates {
 	idle,
 	walk,
@@ -12,8 +14,10 @@ enum playerMotionStates {
 	attack
 }
 
+var currentHealth: float = MAX_HEALTH - 20
 var playerMotionMode: int = playerMotionStates.idle 
 var playerDirection: int = 0
+
 func _physics_process(delta: float) -> void:
 	
 	
@@ -24,7 +28,7 @@ func _physics_process(delta: float) -> void:
 	handleVerticalMotion()
 	handleHorizontalMotion()
 	handlePlayerAnimationSprite()
-	
+	syncPlayerHealthWithHealthBar()
 
 	move_and_slide()
 	
@@ -72,3 +76,11 @@ func isPlayerInAir() -> bool:
 	if is_on_floor():
 		return false
 	return true
+
+func syncPlayerHealthWithHealthBar():
+	if healthBar != null && healthBar is PlayerHealthBar:
+		healthBar.setHealthBarValue(currentHealth)
+		
+func reduceHealth(damage: float) -> void:
+	currentHealth -= damage
+	

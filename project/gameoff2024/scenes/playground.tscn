@@ -1,13 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://bjb60q4axtorv"]
+[gd_scene load_steps=10 format=3 uid="uid://bjb60q4axtorv"]
 
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_w8hhe"]
 [ext_resource type="Script" path="res://scripts/camera_2d.gd" id="2_p1iw7"]
 [ext_resource type="Texture2D" uid="uid://3nv6b5mkffkh" path="res://assets/parallax/Layer 1.png" id="3_wjc0c"]
 [ext_resource type="Texture2D" uid="uid://cbbwyo16xdifv" path="res://assets/parallax/Layer 2.png" id="4_260kp"]
 [ext_resource type="Texture2D" uid="uid://btx1bmu3o53c8" path="res://assets/parallax/Layer 0.png" id="5_jvji4"]
+[ext_resource type="PackedScene" uid="uid://2maeoqd05oi6" path="res://scenes/player_health_bar.tscn" id="6_8w7ww"]
+[ext_resource type="PackedScene" uid="uid://j24tbbn6nn3a" path="res://scenes/player_damage_zone.tscn" id="7_frha6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_klt5n"]
 size = Vector2(30747, 222)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r4bky"]
+radius = 325.73
 
 [node name="Playground" type="Node2D"]
 metadata/_edit_vertical_guides_ = [275.0]
@@ -19,8 +24,9 @@ position = Vector2(1335, 197)
 position = Vector2(-1293.5, 768)
 shape = SubResource("RectangleShape2D_klt5n")
 
-[node name="Player" parent="." instance=ExtResource("1_w8hhe")]
+[node name="Player" parent="." node_paths=PackedStringArray("healthBar") instance=ExtResource("1_w8hhe")]
 position = Vector2(275, 632)
+healthBar = NodePath("../CanvasLayer/PlayerHealthBar")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -54,3 +60,16 @@ centered = false
 anchor_mode = 0
 script = ExtResource("2_p1iw7")
 TargetNode = NodePath("../Player")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerHealthBar" parent="CanvasLayer" instance=ExtResource("6_8w7ww")]
+position = Vector2(116, 45)
+
+[node name="PlayerDamageZone" parent="." instance=ExtResource("7_frha6")]
+position = Vector2(1798, 535)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDamageZone"]
+position = Vector2(322, -14)
+shape = SubResource("CircleShape2D_r4bky")
+debug_color = Color(0.925022, 0.203444, 0.465446, 0.42)

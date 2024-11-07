@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://2maeoqd05oi6"]
+
+[ext_resource type="Script" path="res://scripts/player_health_bar.gd" id="1_ir31v"]
+[ext_resource type="Texture2D" uid="uid://dd4dd57gh28bg" path="res://assets/healthBar/texture_under.png" id="2_tweb3"]
+[ext_resource type="Texture2D" uid="uid://c0yi1qhfhmxvx" path="res://assets/healthBar/texture.png" id="3_ic6ir"]
+[ext_resource type="Texture2D" uid="uid://bo2ahxwyty0p8" path="res://assets/healthBar/over.png" id="4_un8pw"]
+[ext_resource type="Texture2D" uid="uid://dhecj3m62taho" path="res://assets/healthBar/decoration.png" id="5_jd3kw"]
+
+[node name="PlayerHealthBar" type="Node2D"]
+script = ExtResource("1_ir31v")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+value = 50.0
+texture_under = ExtResource("2_tweb3")
+texture_progress = ExtResource("3_ic6ir")
+
+[node name="Over" type="Sprite2D" parent="."]
+position = Vector2(251, 48.75)
+scale = Vector2(1.05664, 1.16355)
+texture = ExtResource("4_un8pw")
+
+[node name="Decoration" type="Sprite2D" parent="Over"]
+position = Vector2(-266.884, -4.08233)
+scale = Vector2(0.257394, 0.257394)
+texture = ExtResource("5_jd3kw")
