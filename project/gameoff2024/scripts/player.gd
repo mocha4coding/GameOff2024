@@ -2,10 +2,10 @@ extends CharacterBody2D
 
 class_name Player
 const SPEED = 450.0
-const JUMP_VELOCITY = -400.0
+const JUMP_VELOCITY = -600.0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 const MAX_HEALTH = 100
-
+var logtag :String = "PlayerScript"
 @export var healthBar: Node2D = null
 enum playerMotionStates {
 	idle,
@@ -80,6 +80,11 @@ func isPlayerInAir() -> bool:
 func syncPlayerHealthWithHealthBar():
 	if healthBar != null && healthBar is PlayerHealthBar:
 		healthBar.setHealthBarValue(currentHealth)
+	else:
+		if healthBar == null :
+			print(logtag, "Health bar is null")
+		if !(healthBar is PlayerHealthBar):
+			print(logtag, "Health bar node is not of type PlayerHealthBar")
 		
 func reduceHealth(damage: float) -> void:
 	currentHealth -= damage

@@ -1,0 +1,248 @@
+[gd_scene load_steps=22 format=3 uid="uid://jphhsxyxg3o0"]
+
+[ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
+[ext_resource type="Texture2D" uid="uid://ctwdriqm7cf81" path="res://assets/decorations/floor.png" id="1_j2l2w"]
+[ext_resource type="Texture2D" uid="uid://3nv6b5mkffkh" path="res://assets/parallax/Layer 1.png" id="2_pqeaw"]
+[ext_resource type="Texture2D" uid="uid://cbbwyo16xdifv" path="res://assets/parallax/Layer 2.png" id="3_0vgj1"]
+[ext_resource type="Texture2D" uid="uid://btx1bmu3o53c8" path="res://assets/parallax/Layer 0.png" id="4_xmela"]
+[ext_resource type="Script" path="res://scripts/camera_2d.gd" id="5_e18g0"]
+[ext_resource type="PackedScene" uid="uid://2maeoqd05oi6" path="res://scenes/player_health_bar.tscn" id="6_86wcs"]
+[ext_resource type="PackedScene" uid="uid://j24tbbn6nn3a" path="res://scenes/player_damage_zone.tscn" id="7_vypnl"]
+[ext_resource type="Texture2D" uid="uid://1e60gq0ynhjy" path="res://assets/decorations/starting point.png" id="9_mgm6h"]
+[ext_resource type="Texture2D" uid="uid://v4cjw82rk2od" path="res://assets/decorations/spawnpointwall.png" id="10_j0kb8"]
+[ext_resource type="Texture2D" uid="uid://ynd7tntqjuwg" path="res://assets/decorations/spawnpointpillardecor.png" id="11_gqvmr"]
+[ext_resource type="Texture2D" uid="uid://ciflncfovalt3" path="res://assets/decorations/spawnpointobstacle.png" id="12_y1nda"]
+[ext_resource type="Texture2D" uid="uid://bvbtqc1rmn2sx" path="res://assets/decorations/spawnPointPalaceGroundFloor.png" id="13_dloec"]
+[ext_resource type="Texture2D" uid="uid://blbdan3pjk4bl" path="res://assets/decorations/spawnPointPalaceGroundFloorWall.png" id="14_g0x1k"]
+[ext_resource type="Texture2D" uid="uid://csqebe5ssiooe" path="res://assets/decorations/spawnPointPalaceFirstFloor.png" id="15_i38l8"]
+[ext_resource type="Texture2D" uid="uid://dg484bt8pe3d" path="res://assets/decorations/SpawnPointPalaceFirstFloorWall.png" id="16_jug4b"]
+[ext_resource type="Texture2D" uid="uid://365ykemae4ri" path="res://assets/decorations/SpawnPointPalaceFirstFloor_roof.png" id="17_aov13"]
+[ext_resource type="PackedScene" uid="uid://b7c6uw6fb6kg" path="res://scenes/chandelier.tscn" id="18_nhipb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mraxs"]
+radius = 325.73
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kvk71"]
+size = Vector2(30747, 222)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1jv1"]
+size = Vector2(1685, 81)
+
+[node name="Level1" type="Node2D"]
+
+[node name="Player" parent="." node_paths=PackedStringArray("healthBar") instance=ExtResource("1_icsw8")]
+position = Vector2(165, 695)
+healthBar = NodePath("../CanvasLayer/PlayerHealthBar")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="-2" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = -2
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(3840, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/-2"]
+texture = ExtResource("2_pqeaw")
+centered = false
+
+[node name="-3" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = -3
+motion_scale = Vector2(0.15, 0.15)
+motion_mirroring = Vector2(3840, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/-3"]
+texture = ExtResource("3_0vgj1")
+centered = false
+
+[node name="-1" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(3840, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/-1"]
+texture = ExtResource("4_xmela")
+centered = false
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("TargetNode")]
+anchor_mode = 0
+script = ExtResource("5_e18g0")
+TargetNode = NodePath("../Player")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerHealthBar" parent="CanvasLayer" instance=ExtResource("6_86wcs")]
+position = Vector2(116, 45)
+
+[node name="PlayerDamageZone" parent="." instance=ExtResource("7_vypnl")]
+position = Vector2(1798, 535)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDamageZone"]
+position = Vector2(322, -14)
+shape = SubResource("CircleShape2D_mraxs")
+debug_color = Color(0.925022, 0.203444, 0.465446, 0.42)
+
+[node name="LevelDecorations" type="Node2D" parent="."]
+
+[node name="floor" type="StaticBody2D" parent="LevelDecorations"]
+z_index = 1
+position = Vector2(1365, 669)
+
+[node name="Sprite2D3" type="Sprite2D" parent="LevelDecorations/floor"]
+position = Vector2(1754, 341)
+texture = ExtResource("1_j2l2w")
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/floor/Sprite2D3"]
+position = Vector2(553, -3)
+texture = ExtResource("1_j2l2w")
+
+[node name="Sprite2D2" type="Sprite2D" parent="LevelDecorations/floor/Sprite2D3"]
+position = Vector2(1113, -3)
+texture = ExtResource("1_j2l2w")
+
+[node name="Sprite2D2" type="Sprite2D" parent="LevelDecorations/floor/Sprite2D3/Sprite2D2"]
+position = Vector2(566, 2)
+texture = ExtResource("1_j2l2w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelDecorations/floor"]
+position = Vector2(-1273, 404)
+shape = SubResource("RectangleShape2D_kvk71")
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/floor"]
+position = Vector2(-1071, 345)
+texture = ExtResource("1_j2l2w")
+
+[node name="Sprite2D2" type="Sprite2D" parent="LevelDecorations/floor"]
+position = Vector2(-511, 345)
+texture = ExtResource("1_j2l2w")
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/floor/Sprite2D2"]
+position = Vector2(575.5, 0)
+texture = ExtResource("1_j2l2w")
+
+[node name="Sprite2D2" type="Sprite2D" parent="LevelDecorations/floor/Sprite2D2"]
+position = Vector2(1135.5, 0)
+texture = ExtResource("1_j2l2w")
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/floor/Sprite2D2/Sprite2D2"]
+position = Vector2(561.5, -1)
+texture = ExtResource("1_j2l2w")
+
+[node name="SpawnPoint" type="Node2D" parent="LevelDecorations"]
+z_index = -1
+position = Vector2(-4, 16)
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/SpawnPoint"]
+position = Vector2(155, 759)
+texture = ExtResource("9_mgm6h")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="LevelDecorations/SpawnPoint"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelDecorations/SpawnPoint/StaticBody2D"]
+polygon = PackedVector2Array(6, 762, 303, 761, 303, 806, 102, 806, 102, 946, 3, 946)
+
+[node name="BackgroundItems" type="Node2D" parent="LevelDecorations"]
+z_index = -2
+
+[node name="Spawnpointwall" type="Node2D" parent="LevelDecorations/BackgroundItems"]
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/BackgroundItems/Spawnpointwall"]
+position = Vector2(396, 509)
+texture = ExtResource("10_j0kb8")
+
+[node name="SpawnPointPillarDecor" type="Node2D" parent="LevelDecorations/BackgroundItems"]
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/BackgroundItems/SpawnPointPillarDecor"]
+position = Vector2(1076, 558)
+texture = ExtResource("11_gqvmr")
+
+[node name="SpawnPointFirstObstacle" type="Node2D" parent="LevelDecorations"]
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/SpawnPointFirstObstacle"]
+position = Vector2(1163, 934)
+texture = ExtResource("12_y1nda")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="LevelDecorations/SpawnPointFirstObstacle"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelDecorations/SpawnPointFirstObstacle/StaticBody2D"]
+polygon = PackedVector2Array(1079, 856, 1054, 956, 1295, 963, 1257, 805)
+
+[node name="SpawnPointPalaceGroundFloor" type="Node2D" parent="LevelDecorations"]
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/SpawnPointPalaceGroundFloor"]
+position = Vector2(2666, 872)
+texture = ExtResource("13_dloec")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="LevelDecorations/SpawnPointPalaceGroundFloor"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelDecorations/SpawnPointPalaceGroundFloor/StaticBody2D"]
+polygon = PackedVector2Array(1681, 898, 2005, 724, 2005, 682, 3644, 682, 3641, 1033, 1672, 997)
+
+[node name="SpawnPointPalaceGroundFloorWall" type="Node2D" parent="LevelDecorations"]
+z_index = -1
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/SpawnPointPalaceGroundFloorWall"]
+position = Vector2(2837, 542)
+texture = ExtResource("14_g0x1k")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="LevelDecorations/SpawnPointPalaceGroundFloorWall"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelDecorations/SpawnPointPalaceGroundFloorWall/StaticBody2D"]
+polygon = PackedVector2Array(3616, 424, 3649, 422, 3648, 684, 3612, 684)
+
+[node name="SpawnPointPalaceFirstFloor_floor" type="Node2D" parent="LevelDecorations"]
+position = Vector2(-33, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/SpawnPointPalaceFirstFloor_floor"]
+position = Vector2(2977, 384)
+texture = ExtResource("15_i38l8")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="LevelDecorations/SpawnPointPalaceFirstFloor_floor"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelDecorations/SpawnPointPalaceFirstFloor_floor/StaticBody2D"]
+polygon = PackedVector2Array(2024, 352, 3482, 349, 3484, 421, 2021, 418)
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="LevelDecorations/SpawnPointPalaceFirstFloor_floor"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelDecorations/SpawnPointPalaceFirstFloor_floor/StaticBody2D2"]
+polygon = PackedVector2Array(3648, 352, 3926, 347, 3924, 418, 3648, 421)
+
+[node name="SpawnPointPalaceFirstFloor_wall" type="Node2D" parent="LevelDecorations"]
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/SpawnPointPalaceFirstFloor_wall"]
+z_index = -2
+position = Vector2(2882, 219)
+texture = ExtResource("16_jug4b")
+
+[node name="wall" type="StaticBody2D" parent="LevelDecorations/SpawnPointPalaceFirstFloor_wall"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelDecorations/SpawnPointPalaceFirstFloor_wall/wall"]
+polygon = PackedVector2Array(2025, 87, 2058, 88, 2057, 357, 2026, 357)
+
+[node name="SpawnPointPalaceFrstFloor_roof" type="Node2D" parent="LevelDecorations"]
+z_index = 1
+
+[node name="StaticBody2D" type="StaticBody2D" parent="LevelDecorations/SpawnPointPalaceFrstFloor_roof"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelDecorations/SpawnPointPalaceFrstFloor_roof/StaticBody2D"]
+position = Vector2(2867.5, 47.5)
+shape = SubResource("RectangleShape2D_p1jv1")
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/SpawnPointPalaceFrstFloor_roof"]
+position = Vector2(2866, 39)
+texture = ExtResource("17_aov13")
+
+[node name="Chandelier" type="Node2D" parent="LevelDecorations"]
+
+[node name="AnimatedSprite2D" parent="LevelDecorations/Chandelier" instance=ExtResource("18_nhipb")]
+position = Vector2(2428, 133)
+
+[node name="AnimatedSprite2D2" parent="LevelDecorations/Chandelier" instance=ExtResource("18_nhipb")]
+position = Vector2(2975, 124)
+
+[node name="AnimatedSprite2D3" parent="LevelDecorations/Chandelier" instance=ExtResource("18_nhipb")]
+z_index = -1
+position = Vector2(2426, 471)
+frame_progress = 0.484195
+
+[node name="AnimatedSprite2D4" parent="LevelDecorations/Chandelier" instance=ExtResource("18_nhipb")]
+z_index = -1
+position = Vector2(2970, 471)
