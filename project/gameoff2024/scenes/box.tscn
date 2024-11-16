@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://bvj4yyx776uyu"]
+
+[ext_resource type="Texture2D" uid="uid://bbdin4d0ocvj0" path="res://assets/interactables/cube.png" id="1_0s0vx"]
+[ext_resource type="Script" path="res://scripts/box.gd" id="1_dppgj"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qhuel"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ukpy"]
+size = Vector2(100, 94)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dtjqv"]
+size = Vector2(128, 94)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ne4gp"]
+size = Vector2(100, 117)
+
+[node name="Box" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_qhuel")
+script = ExtResource("1_dppgj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_0s0vx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7ukpy")
+
+[node name="playerDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerDetector"]
+shape = SubResource("RectangleShape2D_dtjqv")
+debug_color = Color(0.662852, 0.510289, 0.148882, 0.42)
+
+[node name="playerDetector2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerDetector2"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_ne4gp")
+
+[connection signal="body_entered" from="playerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="playerDetector" to="." method="_on_player_detector_body_exited"]
+[connection signal="body_entered" from="playerDetector2" to="." method="_on_player_detector_2_body_entered"]
+[connection signal="body_exited" from="playerDetector2" to="." method="_on_player_detector_2_body_exited"]

@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://xt050ibvxkdi"]
+
+[ext_resource type="Texture2D" uid="uid://chxwrgjf66m4b" path="res://assets/decorations/DoorWithoutGate.png" id="1_3d4vi"]
+[ext_resource type="Script" path="res://scripts/animatable_door.gd" id="1_c58ms"]
+[ext_resource type="Texture2D" uid="uid://csrvn2w124ubl" path="res://assets/decorations/DoorGate.png" id="2_q1yy7"]
+[ext_resource type="Texture2D" uid="uid://dc7ut74cmg72k" path="res://assets/decorations/DoorFrame.png" id="3_tee7b"]
+
+[sub_resource type="Animation" id="Animation_2vb3k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GateMoveable:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qcmoc"]
+resource_name = "liftGate"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GateMoveable:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -168)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ij3ub"]
+_data = {
+"RESET": SubResource("Animation_2vb3k"),
+"liftGate": SubResource("Animation_qcmoc")
+}
+
+[node name="AnimatableDoor" type="Node2D"]
+script = ExtResource("1_c58ms")
+
+[node name="Door" type="Sprite2D" parent="."]
+texture = ExtResource("1_3d4vi")
+
+[node name="GateMoveable" type="Sprite2D" parent="."]
+z_as_relative = false
+texture = ExtResource("2_q1yy7")
+
+[node name="DoorFrame" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("3_tee7b")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ij3ub")
+}

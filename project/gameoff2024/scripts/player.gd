@@ -1,7 +1,8 @@
 extends CharacterBody2D
 
 class_name Player
-const SPEED = 450.0
+const MAX_SPEED = 450.0
+var speed = MAX_SPEED
 const JUMP_VELOCITY = -600.0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 const MAX_HEALTH = 100
@@ -11,12 +12,15 @@ enum playerMotionStates {
 	idle,
 	walk,
 	jump,
-	attack
+	attack,
+	push,
+	pull
 }
 
 var currentHealth: float = MAX_HEALTH - 20
 var playerMotionMode: int = playerMotionStates.idle 
 var playerDirection: int = 0
+var playerHorizontalDirectionVector: Vector2 = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
 	
@@ -25,6 +29,8 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
+	var input_direction =  Vector2(Input.get_axis("left", "right"), 0).normalized()
+	playerHorizontalDirectionVector = input_direction
 	handleVerticalMotion()
 	handleHorizontalMotion()
 	handlePlayerAnimationSprite()
@@ -47,11 +53,11 @@ func handleHorizontalMotion() -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	playerDirection = Input.get_axis("left", "right")
 	if playerDirection:
-		velocity.x = playerDirection * SPEED
+		velocity.x = playerDirection * speed
 		if playerMotionMode != playerMotionStates.jump:
 			playerMotionMode = playerMotionStates.walk
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, speed)
 		if playerMotionMode != playerMotionStates.jump:
 			playerMotionMode = playerMotionStates.idle
 
@@ -64,6 +70,10 @@ func handlePlayerAnimationSprite() -> void:
 		animated_sprite_2d.play("jump")
 	elif playerMotionMode == playerMotionStates.attack:
 		animated_sprite_2d.play("attack")
+	elif playerMotionMode == playerMotionStates.push:
+		animated_sprite_2d.play("push")
+	elif playerMotionMode == playerMotionStates.pull:
+		animated_sprite_2d.play("pull")
 	else:
 		animated_sprite_2d.play("idle")
 		

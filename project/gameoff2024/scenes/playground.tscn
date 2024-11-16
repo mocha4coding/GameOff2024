@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bjb60q4axtorv"]
+[gd_scene load_steps=12 format=3 uid="uid://bjb60q4axtorv"]
 
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_w8hhe"]
 [ext_resource type="Script" path="res://scripts/camera_2d.gd" id="2_p1iw7"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://btx1bmu3o53c8" path="res://assets/parallax/Layer 0.png" id="5_jvji4"]
 [ext_resource type="PackedScene" uid="uid://2maeoqd05oi6" path="res://scenes/player_health_bar.tscn" id="6_8w7ww"]
 [ext_resource type="PackedScene" uid="uid://j24tbbn6nn3a" path="res://scenes/player_damage_zone.tscn" id="7_frha6"]
+[ext_resource type="PackedScene" uid="uid://bemw4rcxesjxq" path="res://scenes/cube.tscn" id="8_kkon1"]
+[ext_resource type="PackedScene" uid="uid://bvj4yyx776uyu" path="res://scenes/box.tscn" id="9_dhwax"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_klt5n"]
 size = Vector2(30747, 222)
@@ -23,6 +25,12 @@ position = Vector2(1335, 197)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
 position = Vector2(-1293.5, 768)
 shape = SubResource("RectangleShape2D_klt5n")
+
+[node name="floor2" type="StaticBody2D" parent="."]
+position = Vector2(1335, 197)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="floor2"]
+polygon = PackedVector2Array(-383, 652, 17, 374, 343, 378, 349, 656)
 
 [node name="Player" parent="." node_paths=PackedStringArray("healthBar") instance=ExtResource("1_w8hhe")]
 position = Vector2(275, 632)
@@ -73,3 +81,16 @@ position = Vector2(1798, 535)
 position = Vector2(322, -14)
 shape = SubResource("CircleShape2D_r4bky")
 debug_color = Color(0.925022, 0.203444, 0.465446, 0.42)
+
+[node name="Cube" parent="." instance=ExtResource("8_kkon1")]
+position = Vector2(1402, 432)
+
+[node name="Cube2" parent="." instance=ExtResource("8_kkon1")]
+position = Vector2(1444, 287)
+
+[node name="Box" parent="." instance=ExtResource("9_dhwax")]
+position = Vector2(854, 529)
+
+[node name="Box2" parent="." instance=ExtResource("9_dhwax")]
+position = Vector2(868, 427)
+mass = 3.0
