@@ -179,7 +179,7 @@ texture = ExtResource("13_dloec")
 polygon = PackedVector2Array(1681, 898, 2005, 724, 2005, 682, 3644, 682, 3641, 1033, 1672, 997)
 
 [node name="SpawnPointPalaceGroundFloorWall" type="Node2D" parent="LevelDecorations"]
-z_index = -3
+z_index = -1
 
 [node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/SpawnPointPalaceGroundFloorWall"]
 position = Vector2(2837, 542)
@@ -191,7 +191,8 @@ texture = ExtResource("14_g0x1k")
 polygon = PackedVector2Array(3616, 424, 3649, 422, 3648, 684, 3612, 684)
 
 [node name="AnimatableDoor" parent="LevelDecorations/SpawnPointPalaceGroundFloorWall" instance=ExtResource("15_5sf47")]
-position = Vector2(3509, 565)
+z_index = -2
+position = Vector2(3537, 543)
 
 [node name="SpawnPointPalaceFirstFloor_floor" type="Node2D" parent="LevelDecorations"]
 position = Vector2(-33, 1)

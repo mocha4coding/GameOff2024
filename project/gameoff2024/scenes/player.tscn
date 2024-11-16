@@ -240,7 +240,7 @@ shape = SubResource("CapsuleShape2D_7txes")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_i04jy")
 animation = &"pull"
-frame_progress = 0.0604743
+frame_progress = 0.518973
 
 [node name="HitArea" type="Area2D" parent="."]
 
