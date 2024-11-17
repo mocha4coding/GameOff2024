@@ -1,0 +1,84 @@
+[gd_scene load_steps=13 format=3 uid="uid://dsp0hlu5hy6a1"]
+
+[ext_resource type="Texture2D" uid="uid://ijxjwmngu5c8" path="res://assets/obstaclesAndHelpers/fire.png" id="1_776d2"]
+[ext_resource type="PackedScene" uid="uid://j24tbbn6nn3a" path="res://scenes/player_damage_zone.tscn" id="2_vjvbh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_21v31"]
+atlas = ExtResource("1_776d2")
+region = Rect2(0, 0, 144, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcpga"]
+atlas = ExtResource("1_776d2")
+region = Rect2(144, 0, 144, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53stj"]
+atlas = ExtResource("1_776d2")
+region = Rect2(288, 0, 144, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4s0yy"]
+atlas = ExtResource("1_776d2")
+region = Rect2(432, 0, 144, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2oexd"]
+atlas = ExtResource("1_776d2")
+region = Rect2(576, 0, 144, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkg8y"]
+atlas = ExtResource("1_776d2")
+region = Rect2(720, 0, 144, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ho2rl"]
+atlas = ExtResource("1_776d2")
+region = Rect2(864, 0, 144, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f74vu"]
+atlas = ExtResource("1_776d2")
+region = Rect2(1008, 0, 144, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jxthn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_21v31")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wcpga")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53stj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4s0yy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2oexd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rkg8y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ho2rl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f74vu")
+}],
+"loop": true,
+"name": &"Fire",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fintw"]
+size = Vector2(89, 125)
+
+[node name="Fire" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_jxthn")
+animation = &"Fire"
+autoplay = "Fire"
+frame_progress = 0.452378
+
+[node name="PlayerDamageZone" parent="." instance=ExtResource("2_vjvbh")]
+position = Vector2(-2, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDamageZone"]
+position = Vector2(7.5, 34.5)
+shape = SubResource("RectangleShape2D_fintw")
