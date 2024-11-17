@@ -197,12 +197,7 @@ texture = ExtResource("15_i38l8")
 [node name="StaticBody2D" type="StaticBody2D" parent="LevelDecorations/SpawnPointPalaceFirstFloor_floor"]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelDecorations/SpawnPointPalaceFirstFloor_floor/StaticBody2D"]
-polygon = PackedVector2Array(2024, 352, 3482, 349, 3484, 421, 2021, 418)
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="LevelDecorations/SpawnPointPalaceFirstFloor_floor"]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelDecorations/SpawnPointPalaceFirstFloor_floor/StaticBody2D2"]
-polygon = PackedVector2Array(3648, 352, 3926, 347, 3924, 418, 3648, 421)
+polygon = PackedVector2Array(2024, 352, 3930, 347, 3931, 420, 2021, 418)
 
 [node name="SpawnPointPalaceFirstFloor_wall" type="Node2D" parent="LevelDecorations"]
 z_index = -1
