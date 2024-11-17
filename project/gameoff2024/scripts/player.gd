@@ -13,8 +13,7 @@ enum playerMotionStates {
 	walk,
 	jump,
 	attack,
-	push,
-	pull
+	pushPull
 }
 
 var currentHealth: float = MAX_HEALTH - 20
@@ -70,10 +69,8 @@ func handlePlayerAnimationSprite() -> void:
 		animated_sprite_2d.play("jump")
 	elif playerMotionMode == playerMotionStates.attack:
 		animated_sprite_2d.play("attack")
-	elif playerMotionMode == playerMotionStates.push:
+	elif playerMotionMode == playerMotionStates.pushPull:
 		animated_sprite_2d.play("push")
-	elif playerMotionMode == playerMotionStates.pull:
-		animated_sprite_2d.play("pull")
 	else:
 		animated_sprite_2d.play("idle")
 		

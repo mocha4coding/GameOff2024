@@ -15,6 +15,9 @@ func _process(delta: float) -> void:
 			player.speed = (player.speed)/3
 			print("Force applied ", force )
 			apply_central_impulse(force)
+		if Input.is_action_just_released("interact"):
+			print("E is released")
+			player.speed = player.MAX_SPEED
 			
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
