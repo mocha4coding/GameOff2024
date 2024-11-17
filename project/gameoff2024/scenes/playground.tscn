@@ -93,4 +93,3 @@ position = Vector2(854, 529)
 
 [node name="Box2" parent="." instance=ExtResource("9_dhwax")]
 position = Vector2(868, 427)
-mass = 3.0

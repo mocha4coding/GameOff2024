@@ -45,7 +45,8 @@ func handleVerticalMotion() -> void:
 	if isPlayerInAir() == true:
 		playerMotionMode = playerMotionStates.jump
 	else:
-		playerMotionMode = playerMotionStates.idle 
+		if playerMotionMode != playerMotionStates.pushPull:
+			playerMotionMode = playerMotionStates.idle 
 		
 func handleHorizontalMotion() -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -53,11 +54,11 @@ func handleHorizontalMotion() -> void:
 	playerDirection = Input.get_axis("left", "right")
 	if playerDirection:
 		velocity.x = playerDirection * speed
-		if playerMotionMode != playerMotionStates.jump:
+		if playerMotionMode != playerMotionStates.jump && playerMotionMode != playerMotionStates.pushPull:
 			playerMotionMode = playerMotionStates.walk
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
-		if playerMotionMode != playerMotionStates.jump:
+		if playerMotionMode != playerMotionStates.jump && playerMotionMode != playerMotionStates.pushPull:
 			playerMotionMode = playerMotionStates.idle
 
 func handlePlayerAnimationSprite() -> void:
@@ -73,11 +74,12 @@ func handlePlayerAnimationSprite() -> void:
 		animated_sprite_2d.play("push")
 	else:
 		animated_sprite_2d.play("idle")
-		
-	if playerDirection < 0 :
-		animated_sprite_2d.flip_h = true
-	elif playerDirection > 0:
-		animated_sprite_2d.flip_h = false
+	
+	if playerMotionMode != playerMotionStates.pushPull:
+		if playerDirection < 0 :
+			animated_sprite_2d.flip_h = true
+		elif playerDirection > 0:
+			animated_sprite_2d.flip_h = false
 
 func isPlayerInAir() -> bool:
 	if is_on_floor():

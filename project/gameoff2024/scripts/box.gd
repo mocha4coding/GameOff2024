@@ -13,10 +13,12 @@ func _process(delta: float) -> void:
 			print("E is pressed")
 			var force = player.playerHorizontalDirectionVector.normalized() * 40
 			player.speed = (player.speed)/3
+			player.playerMotionMode = player.playerMotionStates.pushPull
 			print("Force applied ", force )
 			apply_central_impulse(force)
 		if Input.is_action_just_released("interact"):
 			print("E is released")
+			player.playerMotionMode = player.playerMotionStates.idle
 			player.speed = player.MAX_SPEED
 			
 
@@ -45,5 +47,6 @@ func _on_player_detector_2_body_exited(body: Node2D) -> void:
 func handlePlayerLeaving():
 	if player != null:
 		player.speed = player.MAX_SPEED
+		player.playerMotionMode = player.playerMotionStates.idle
 		player = null
 		print("Player has left the box")
