@@ -15,7 +15,6 @@ enum playerMotionStates {
 	attack,
 	pushPull
 }
-
 var currentHealth: float = MAX_HEALTH - 20
 var playerMotionMode: int = playerMotionStates.idle 
 var playerDirection: int = 0
@@ -98,3 +97,11 @@ func syncPlayerHealthWithHealthBar():
 func reduceHealth(damage: float) -> void:
 	currentHealth -= damage
 	
+	
+func fade_out():
+	var tween = get_tree().create_tween()
+	tween.tween_property(animated_sprite_2d, "modulate:a", 0.0, 3.0)
+	
+func fade_in():
+	var tween = get_tree().create_tween()
+	tween.tween_property(animated_sprite_2d, "modulate:a", 1.0, 3.0)
