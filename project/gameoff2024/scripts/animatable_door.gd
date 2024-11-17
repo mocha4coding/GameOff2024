@@ -4,7 +4,7 @@ extends Node2D
 @onready var gate_moveable: Sprite2D = $GateMoveable
 
 
-var isKeyPresent: bool = true
+var isKeyPresent: bool = false
 var isGateOpen: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,3 +17,8 @@ func _process(delta: float) -> void:
 		if !isGateOpen:
 			animation_player.play("liftGate")
 			isGateOpen = true
+
+
+func _on_player_detector_body_entered(body: Node2D) -> void:
+	if body is Player:
+		isKeyPresent = true

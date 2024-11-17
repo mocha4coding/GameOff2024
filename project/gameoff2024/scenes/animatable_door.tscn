@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://xt050ibvxkdi"]
+[gd_scene load_steps=9 format=3 uid="uid://xt050ibvxkdi"]
 
 [ext_resource type="Texture2D" uid="uid://chxwrgjf66m4b" path="res://assets/decorations/DoorWithoutGate.png" id="1_3d4vi"]
 [ext_resource type="Script" path="res://scripts/animatable_door.gd" id="1_c58ms"]
@@ -23,7 +23,6 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_qcmoc"]
 resource_name = "liftGate"
 length = 2.0
-loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -42,6 +41,9 @@ _data = {
 "RESET": SubResource("Animation_2vb3k"),
 "liftGate": SubResource("Animation_qcmoc")
 }
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_814jf"]
+radius = 172.0
 
 [node name="AnimatableDoor" type="Node2D"]
 script = ExtResource("1_c58ms")
@@ -62,3 +64,10 @@ texture = ExtResource("3_tee7b")
 libraries = {
 "": SubResource("AnimationLibrary_ij3ub")
 }
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_814jf")
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
