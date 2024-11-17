@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=25 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
 [ext_resource type="Texture2D" uid="uid://ctwdriqm7cf81" path="res://assets/decorations/floor.png" id="1_j2l2w"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://365ykemae4ri" path="res://assets/decorations/SpawnPointPalaceFirstFloor_roof.png" id="17_aov13"]
 [ext_resource type="PackedScene" uid="uid://b7c6uw6fb6kg" path="res://scenes/chandelier.tscn" id="18_nhipb"]
 [ext_resource type="PackedScene" uid="uid://bvj4yyx776uyu" path="res://scenes/box.tscn" id="20_ittnv"]
+[ext_resource type="PackedScene" uid="uid://dsp0hlu5hy6a1" path="res://scenes/fire.tscn" id="22_h4iph"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mraxs"]
 radius = 325.73
@@ -93,15 +94,7 @@ position = Vector2(1754, 341)
 texture = ExtResource("1_j2l2w")
 
 [node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/floor/Sprite2D3"]
-position = Vector2(553, -3)
-texture = ExtResource("1_j2l2w")
-
-[node name="Sprite2D2" type="Sprite2D" parent="LevelDecorations/floor/Sprite2D3"]
-position = Vector2(1113, -3)
-texture = ExtResource("1_j2l2w")
-
-[node name="Sprite2D2" type="Sprite2D" parent="LevelDecorations/floor/Sprite2D3/Sprite2D2"]
-position = Vector2(566, 2)
+position = Vector2(241, -3)
 texture = ExtResource("1_j2l2w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelDecorations/floor"]
@@ -255,7 +248,153 @@ z_index = -1
 position = Vector2(2970, 471)
 
 [node name="Box" parent="." instance=ExtResource("20_ittnv")]
-position = Vector2(2048, 632)
+position = Vector2(2122, 629)
 
 [node name="Box2" parent="." instance=ExtResource("20_ittnv")]
-position = Vector2(2075, 512)
+position = Vector2(2164, 511)
+
+[node name="FireFloor" type="Node2D" parent="."]
+
+[node name="Fire" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(3664, 966)
+
+[node name="Fire2" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(3736, 966)
+
+[node name="Fire3" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(3808, 966)
+
+[node name="Fire4" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(3880, 966)
+
+[node name="Fire5" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(3955, 966)
+
+[node name="Fire6" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(4027, 966)
+
+[node name="Fire7" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(4099, 966)
+
+[node name="Fire8" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(4171, 966)
+
+[node name="Fire9" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(4243, 966)
+
+[node name="Fire10" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(4315, 966)
+
+[node name="Fire11" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(4387, 966)
+
+[node name="Fire12" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(4459, 966)
+
+[node name="Fire13" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(4531, 966)
+
+[node name="Fire14" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(4603, 966)
+
+[node name="Fire15" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(4675, 966)
+
+[node name="Fire16" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(4747, 966)
+
+[node name="Fire17" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(4822, 966)
+
+[node name="Fire18" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(4894, 966)
+
+[node name="Fire19" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(4966, 966)
+
+[node name="Fire20" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(5038, 966)
+
+[node name="Fire21" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(5110, 966)
+
+[node name="Fire22" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(5182, 966)
+
+[node name="Fire23" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(5254, 966)
+
+[node name="Fire24" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(5326, 966)
+
+[node name="Fire25" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(5400, 966)
+
+[node name="Fire26" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(5472, 966)
+
+[node name="Fire27" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(5544, 966)
+
+[node name="Fire28" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(5616, 966)
+
+[node name="Fire29" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(5680, 966)
+
+[node name="Fire30" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(5752, 966)
+
+[node name="Fire31" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(5824, 966)
+
+[node name="Fire32" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(5896, 966)
+
+[node name="Fire33" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(5968, 966)
+
+[node name="Fire34" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(6040, 966)
+
+[node name="Fire35" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(6112, 966)
+
+[node name="Fire36" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(6184, 966)
+
+[node name="Fire37" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(6256, 966)
+
+[node name="Fire38" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(6328, 966)
+
+[node name="Fire39" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(6400, 966)
+
+[node name="Fire40" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(6472, 966)
+
+[node name="Fire41" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(6536, 966)
+
+[node name="Fire42" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(6608, 966)
+
+[node name="Fire43" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(6680, 966)
+
+[node name="Fire44" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(6752, 966)
+
+[node name="Fire45" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(6816, 966)
+
+[node name="Fire46" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(6888, 966)
+
+[node name="Fire47" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(6960, 966)
+
+[node name="Fire48" parent="FireFloor" instance=ExtResource("22_h4iph")]
+position = Vector2(7032, 966)
