@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=30 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bvbtqc1rmn2sx" path="res://assets/decorations/spawnPointPalaceGroundFloor.png" id="13_dloec"]
 [ext_resource type="Texture2D" uid="uid://blbdan3pjk4bl" path="res://assets/decorations/spawnPointPalaceGroundFloorWall.png" id="14_g0x1k"]
 [ext_resource type="PackedScene" uid="uid://xt050ibvxkdi" path="res://scenes/animatable_door.tscn" id="15_5sf47"]
+[ext_resource type="Texture2D" uid="uid://btdm7l400myc4" path="res://assets/decorations/stairs.png" id="15_73yso"]
 [ext_resource type="Texture2D" uid="uid://csqebe5ssiooe" path="res://assets/decorations/spawnPointPalaceFirstFloor.png" id="15_i38l8"]
 [ext_resource type="Texture2D" uid="uid://dg484bt8pe3d" path="res://assets/decorations/SpawnPointPalaceFirstFloorWall.png" id="16_jug4b"]
 [ext_resource type="Texture2D" uid="uid://365ykemae4ri" path="res://assets/decorations/SpawnPointPalaceFirstFloor_roof.png" id="17_aov13"]
@@ -33,6 +34,9 @@ size = Vector2(30747, 222)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1jv1"]
 size = Vector2(1685, 81)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ig5ep"]
+size = Vector2(70, 1152)
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_hqld2")
@@ -168,6 +172,7 @@ polygon = PackedVector2Array(1079, 856, 1054, 956, 1295, 963, 1257, 805)
 [node name="SpawnPointPalaceGroundFloor" type="Node2D" parent="LevelDecorations"]
 
 [node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/SpawnPointPalaceGroundFloor"]
+z_index = 1
 position = Vector2(2666, 872)
 texture = ExtResource("13_dloec")
 
@@ -175,6 +180,10 @@ texture = ExtResource("13_dloec")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelDecorations/SpawnPointPalaceGroundFloor/StaticBody2D"]
 polygon = PackedVector2Array(1681, 898, 2005, 724, 2005, 682, 3644, 682, 3641, 1033, 1672, 997)
+
+[node name="Stairs" type="Sprite2D" parent="LevelDecorations/SpawnPointPalaceGroundFloor"]
+position = Vector2(3436, 658)
+texture = ExtResource("15_73yso")
 
 [node name="SpawnPointPalaceGroundFloorWall" type="Node2D" parent="LevelDecorations"]
 z_index = -1
@@ -410,3 +419,9 @@ position = Vector2(3540, 203)
 [node name="CompassRotateable" parent="." instance=ExtResource("24_7apwo")]
 z_index = -1
 position = Vector2(2162, 234)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-36, 502)
+shape = SubResource("RectangleShape2D_ig5ep")
