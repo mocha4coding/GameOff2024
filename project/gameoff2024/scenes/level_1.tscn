@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=31 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://btdm7l400myc4" path="res://assets/decorations/stairs.png" id="15_73yso"]
 [ext_resource type="Texture2D" uid="uid://csqebe5ssiooe" path="res://assets/decorations/spawnPointPalaceFirstFloor.png" id="15_i38l8"]
 [ext_resource type="Texture2D" uid="uid://dg484bt8pe3d" path="res://assets/decorations/SpawnPointPalaceFirstFloorWall.png" id="16_jug4b"]
+[ext_resource type="PackedScene" uid="uid://cjkf7b5tfwb8p" path="res://scenes/barrel.tscn" id="16_wk7eq"]
 [ext_resource type="Texture2D" uid="uid://365ykemae4ri" path="res://assets/decorations/SpawnPointPalaceFirstFloor_roof.png" id="17_aov13"]
 [ext_resource type="PackedScene" uid="uid://b7c6uw6fb6kg" path="res://scenes/chandelier.tscn" id="18_nhipb"]
 [ext_resource type="Texture2D" uid="uid://chxwrgjf66m4b" path="res://assets/decorations/DoorWithoutGate.png" id="20_2d7pp"]
@@ -184,6 +185,9 @@ polygon = PackedVector2Array(1681, 898, 2005, 724, 2005, 682, 3644, 682, 3641, 1
 [node name="Stairs" type="Sprite2D" parent="LevelDecorations/SpawnPointPalaceGroundFloor"]
 position = Vector2(3436, 658)
 texture = ExtResource("15_73yso")
+
+[node name="Barrel" parent="LevelDecorations/SpawnPointPalaceGroundFloor" instance=ExtResource("16_wk7eq")]
+position = Vector2(4360, 699)
 
 [node name="SpawnPointPalaceGroundFloorWall" type="Node2D" parent="LevelDecorations"]
 z_index = -1
