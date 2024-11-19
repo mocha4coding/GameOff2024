@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=28 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://chxwrgjf66m4b" path="res://assets/decorations/DoorWithoutGate.png" id="20_2d7pp"]
 [ext_resource type="PackedScene" uid="uid://bvj4yyx776uyu" path="res://scenes/box.tscn" id="20_ittnv"]
 [ext_resource type="PackedScene" uid="uid://dsp0hlu5hy6a1" path="res://scenes/fire.tscn" id="22_h4iph"]
+[ext_resource type="PackedScene" uid="uid://bd3ftl0ow7t2" path="res://scenes/compass_rotateable.tscn" id="24_7apwo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mraxs"]
 radius = 325.73
@@ -77,6 +78,7 @@ TargetNode = NodePath("../Player")
 
 [node name="PlayerHealthBar" parent="CanvasLayer" instance=ExtResource("6_86wcs")]
 position = Vector2(116, 45)
+scale = Vector2(0.75, 0.75)
 
 [node name="PlayerDamageZone" parent="." instance=ExtResource("7_vypnl")]
 position = Vector2(3662, 910)
@@ -404,3 +406,7 @@ position = Vector2(7032, 966)
 
 [node name="PalaceFirstFloorSpawnPoint" type="Marker2D" parent="."]
 position = Vector2(3540, 203)
+
+[node name="CompassRotateable" parent="." instance=ExtResource("24_7apwo")]
+z_index = -1
+position = Vector2(2162, 234)
