@@ -78,7 +78,9 @@ frame_progress = 0.452378
 
 [node name="PlayerDamageZone" parent="." instance=ExtResource("2_vjvbh")]
 position = Vector2(-2, 0)
+damage = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDamageZone"]
 position = Vector2(7.5, 34.5)
 shape = SubResource("RectangleShape2D_fintw")
+debug_color = Color(0.576668, 0.550279, 0.164524, 0.42)

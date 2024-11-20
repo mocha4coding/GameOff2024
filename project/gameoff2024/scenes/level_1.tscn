@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=40 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -21,23 +21,97 @@
 [ext_resource type="Texture2D" uid="uid://dg484bt8pe3d" path="res://assets/decorations/SpawnPointPalaceFirstFloorWall.png" id="16_jug4b"]
 [ext_resource type="PackedScene" uid="uid://cjkf7b5tfwb8p" path="res://scenes/barrel.tscn" id="16_wk7eq"]
 [ext_resource type="Texture2D" uid="uid://365ykemae4ri" path="res://assets/decorations/SpawnPointPalaceFirstFloor_roof.png" id="17_aov13"]
+[ext_resource type="Texture2D" uid="uid://bauy14leqweiv" path="res://assets/decorations/PalaceChain.png" id="18_l2a68"]
 [ext_resource type="PackedScene" uid="uid://b7c6uw6fb6kg" path="res://scenes/chandelier.tscn" id="18_nhipb"]
 [ext_resource type="Texture2D" uid="uid://chxwrgjf66m4b" path="res://assets/decorations/DoorWithoutGate.png" id="20_2d7pp"]
 [ext_resource type="PackedScene" uid="uid://bvj4yyx776uyu" path="res://scenes/box.tscn" id="20_ittnv"]
 [ext_resource type="PackedScene" uid="uid://dsp0hlu5hy6a1" path="res://scenes/fire.tscn" id="22_h4iph"]
 [ext_resource type="PackedScene" uid="uid://bd3ftl0ow7t2" path="res://scenes/compass_rotateable.tscn" id="24_7apwo"]
+[ext_resource type="Texture2D" uid="uid://be8lcal1lqfv" path="res://assets/decorations/FireLavaShelterPlatform.png" id="24_786im"]
+[ext_resource type="Texture2D" uid="uid://dmxonb1b1h0u6" path="res://assets/decorations/TempleFloor.png" id="25_35p76"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mraxs"]
 radius = 325.73
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvk71"]
-size = Vector2(30747, 222)
+size = Vector2(18926.5, 222)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p1jv1"]
 size = Vector2(1685, 81)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4iptg"]
+size = Vector2(625, 104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jjqmx"]
+size = Vector2(4856, 110)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ruv6i"]
+size = Vector2(3438, 166)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ig5ep"]
 size = Vector2(70, 1152)
+
+[sub_resource type="Animation" id="Animation_kqfid"]
+resource_name = "roll"
+length = 3.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Barrel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(5260, 933), Vector2(3736, 933)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Barrel2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(5428, 935), Vector2(6995, 935)]
+}
+
+[sub_resource type="Animation" id="Animation_28dou"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Barrel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5260, 933)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Barrel2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5428, 935)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vtx0o"]
+_data = {
+"RESET": SubResource("Animation_28dou"),
+"roll": SubResource("Animation_kqfid")
+}
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_hqld2")
@@ -108,7 +182,7 @@ position = Vector2(241, -3)
 texture = ExtResource("1_j2l2w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelDecorations/floor"]
-position = Vector2(-1273, 404)
+position = Vector2(-7183.25, 404)
 shape = SubResource("RectangleShape2D_kvk71")
 
 [node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/floor"]
@@ -186,9 +260,6 @@ polygon = PackedVector2Array(1681, 898, 2005, 724, 2005, 682, 3644, 682, 3641, 1
 position = Vector2(3436, 658)
 texture = ExtResource("15_73yso")
 
-[node name="Barrel" parent="LevelDecorations/SpawnPointPalaceGroundFloor" instance=ExtResource("16_wk7eq")]
-position = Vector2(4360, 699)
-
 [node name="SpawnPointPalaceGroundFloorWall" type="Node2D" parent="LevelDecorations"]
 z_index = -1
 
@@ -204,6 +275,10 @@ polygon = PackedVector2Array(3616, 424, 3649, 422, 3648, 684, 3612, 684)
 [node name="AnimatableDoor" parent="LevelDecorations/SpawnPointPalaceGroundFloorWall" instance=ExtResource("15_5sf47")]
 z_index = -2
 position = Vector2(3537, 543)
+
+[node name="Decoration" type="Sprite2D" parent="LevelDecorations/SpawnPointPalaceGroundFloorWall"]
+position = Vector2(3755, 513)
+texture = ExtResource("18_l2a68")
 
 [node name="SpawnPointPalaceFirstFloor_floor" type="Node2D" parent="LevelDecorations"]
 position = Vector2(-33, 1)
@@ -264,6 +339,32 @@ position = Vector2(2970, 471)
 z_index = -1
 position = Vector2(3541, 243)
 texture = ExtResource("20_2d7pp")
+
+[node name="FireLavaShelter" type="Node2D" parent="LevelDecorations"]
+position = Vector2(294, 15)
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/FireLavaShelter"]
+z_index = -1
+position = Vector2(5019, 582)
+texture = ExtResource("24_786im")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="LevelDecorations/FireLavaShelter"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelDecorations/FireLavaShelter/StaticBody2D"]
+position = Vector2(5021.5, 776)
+shape = SubResource("RectangleShape2D_4iptg")
+
+[node name="TempleFloor" type="Node2D" parent="LevelDecorations"]
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/TempleFloor"]
+position = Vector2(9506, 1020)
+texture = ExtResource("25_35p76")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="LevelDecorations/TempleFloor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelDecorations/TempleFloor/StaticBody2D"]
+position = Vector2(9504, 1015)
+shape = SubResource("RectangleShape2D_jjqmx")
 
 [node name="Box" parent="." instance=ExtResource("20_ittnv")]
 position = Vector2(2122, 629)
@@ -417,6 +518,12 @@ position = Vector2(6960, 966)
 [node name="Fire48" parent="FireFloor" instance=ExtResource("22_h4iph")]
 position = Vector2(7032, 966)
 
+[node name="StaticBody2D" type="StaticBody2D" parent="FireFloor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FireFloor/StaticBody2D"]
+position = Vector2(5367, 1104)
+shape = SubResource("RectangleShape2D_ruv6i")
+
 [node name="PalaceFirstFloorSpawnPoint" type="Marker2D" parent="."]
 position = Vector2(3540, 203)
 
@@ -424,8 +531,22 @@ position = Vector2(3540, 203)
 z_index = -1
 position = Vector2(2162, 234)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="WorldLeftBoundary" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldLeftBoundary"]
 position = Vector2(-36, 502)
 shape = SubResource("RectangleShape2D_ig5ep")
+
+[node name="Barrels" type="Node2D" parent="."]
+
+[node name="Barrel" parent="Barrels" instance=ExtResource("16_wk7eq")]
+position = Vector2(5260, 933)
+
+[node name="Barrel2" parent="Barrels" instance=ExtResource("16_wk7eq")]
+position = Vector2(5428, 935)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Barrels"]
+libraries = {
+"": SubResource("AnimationLibrary_vtx0o")
+}
+autoplay = "roll"
