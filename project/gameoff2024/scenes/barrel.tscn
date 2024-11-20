@@ -1,6 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cjkf7b5tfwb8p"]
+[gd_scene load_steps=8 format=3 uid="uid://cjkf7b5tfwb8p"]
 
 [ext_resource type="Texture2D" uid="uid://dm3uobab4nfiq" path="res://assets/obstaclesAndHelpers/barrel.png" id="1_q0jhc"]
+[ext_resource type="Script" path="res://scripts/barrel.gd" id="2_d28f2"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_uxloh"]
 
 [sub_resource type="Animation" id="Animation_7ejte"]
 length = 0.001
@@ -43,9 +46,10 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_ienx8"]
 radius = 87.367
 
-[node name="Barrel" type="Sprite2D"]
+[node name="Barrel" type="StaticBody2D"]
 rotation = 3.14159
-texture = ExtResource("1_q0jhc")
+physics_material_override = SubResource("PhysicsMaterial_uxloh")
+script = ExtResource("2_d28f2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -53,7 +57,8 @@ libraries = {
 }
 autoplay = "roll"
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ienx8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_q0jhc")

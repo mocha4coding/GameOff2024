@@ -18,6 +18,6 @@ func _process(_delta) -> void:
 
 		var cameraPosition: Vector2 = Vector2(cameraPositionX, cameraPositionY)
 		currentPosition = cameraPosition
-		if cameraPosition.x > 0:
-			set_position(cameraPosition) 
+		#if cameraPosition.x > 0:
+		set_position(cameraPosition) 
 	
