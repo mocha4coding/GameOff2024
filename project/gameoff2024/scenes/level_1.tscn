@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=45 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -116,6 +116,43 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xekhg"]
 size = Vector2(23, 126)
+
+[sub_resource type="Animation" id="Animation_qxjb3"]
+resource_name = "bring_barrel"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Barrels:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 227), Vector2(0, 11)]
+}
+
+[sub_resource type="Animation" id="Animation_csgth"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Barrels:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 234)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_whbnp"]
+_data = {
+"RESET": SubResource("Animation_csgth"),
+"bring_barrel": SubResource("Animation_qxjb3")
+}
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_hqld2")
@@ -542,6 +579,7 @@ position = Vector2(-36, 502)
 shape = SubResource("RectangleShape2D_ig5ep")
 
 [node name="Barrels" type="Node2D" parent="."]
+position = Vector2(0, 234)
 script = ExtResource("29_aytc5")
 
 [node name="Barrel" parent="Barrels" instance=ExtResource("16_wk7eq")]
@@ -571,5 +609,11 @@ position = Vector2(3647.5, 999)
 shape = SubResource("RectangleShape2D_xekhg")
 debug_color = Color(0.888181, 0.190313, 0.663697, 0.42)
 
+[node name="Level_1_animation_player_general" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_whbnp")
+}
+
 [connection signal="body_entered" from="Barrels/ChandeDirection" to="Barrels" method="_on_chande_direction_body_entered"]
 [connection signal="body_entered" from="Barrels/ChandeDirection2" to="Barrels" method="_on_chande_direction_2_body_entered"]
+[connection signal="animation_finished" from="Level_1_animation_player_general" to="." method="_on_level_1_animation_player_general_animation_finished"]
