@@ -1,23 +1,52 @@
 extends Camera2D
 
-@export var TargetNode : Node2D = null
-var currentPosition:Vector2 = Vector2(0,0)
+@export var TargetNode: Node2D = null
+@export var right_drag_threshold: float = 100.0 # Threshold for right movement
+@export var horizontal_offset: float = 160.0 # Horizontal offset for the camera
+@export var smoothness: float = 5.0 # Higher values make movement smoother
+var left_offset : float = 1080 - 160
+var right_offset : float = 160
+var current_position: Vector2 = Vector2.ZERO
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	if TargetNode == null:
 		print("Camera2D target node is null")
-
-
-func _process(_delta) -> void:
-	if TargetNode == null :
-		set_position(currentPosition)
 	else:
-		var cameraPositionX: float = TargetNode.get_position().x - 160
-		var cameraPositionY: float = get_position().y
+		# Initialize the camera's position to match the target initially with offset
+		current_position = Vector2(TargetNode.position.x - horizontal_offset, position.y)
+		set_position(current_position)
 
-		var cameraPosition: Vector2 = Vector2(cameraPositionX, cameraPositionY)
-		currentPosition = cameraPosition
-		#if cameraPosition.x > 0:
-		set_position(cameraPosition) 
+func _process(_delta: float) -> void:
+	if TargetNode == null:
+		set_position(current_position)
+		return
 	
+	if TargetNode.playerDirection == -1 :
+		horizontal_offset = left_offset
+	elif TargetNode.playerDirection == 1  :
+		horizontal_offset = right_offset
+	# Target position with horizontal offset
+	var target_x: float = TargetNode.position.x - horizontal_offset
+
+	# Check horizontal movement direction
+	var moving_left: bool = target_x < current_position.x
+	
+	if moving_left:
+		# No drag when moving left; follow immediately
+		current_position.x = target_x
+		
+	else:
+		
+		# Drag effect for right movement
+		var distance_x: float = abs(target_x - current_position.x)
+		if distance_x > right_drag_threshold:
+			# Move towards the target position beyond the drag threshold
+			var direction: float = sign(target_x - current_position.x)
+			current_position.x += direction * (distance_x - right_drag_threshold)
+
+	# Smoothly interpolate to the new position
+	var smoothed_position = Vector2(
+		lerp(position.x, current_position.x, smoothness * _delta),
+		position.y
+	)
+	set_position(smoothed_position)
