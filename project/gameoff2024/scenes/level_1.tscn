@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=46 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://be8lcal1lqfv" path="res://assets/decorations/FireLavaShelterPlatform.png" id="24_786im"]
 [ext_resource type="Texture2D" uid="uid://dmxonb1b1h0u6" path="res://assets/decorations/TempleFloor.png" id="25_35p76"]
 [ext_resource type="Script" path="res://scripts/barrel_roll_handler.gd" id="29_aytc5"]
+[ext_resource type="PackedScene" uid="uid://byjg55q0bx0ii" path="res://scenes/naagmani.tscn" id="31_nk8px"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mraxs"]
 radius = 325.73
@@ -613,6 +614,9 @@ debug_color = Color(0.888181, 0.190313, 0.663697, 0.42)
 libraries = {
 "": SubResource("AnimationLibrary_whbnp")
 }
+
+[node name="Naagmani" parent="." instance=ExtResource("31_nk8px")]
+position = Vector2(3230, 319)
 
 [connection signal="body_entered" from="Barrels/ChandeDirection" to="Barrels" method="_on_chande_direction_body_entered"]
 [connection signal="body_entered" from="Barrels/ChandeDirection2" to="Barrels" method="_on_chande_direction_2_body_entered"]

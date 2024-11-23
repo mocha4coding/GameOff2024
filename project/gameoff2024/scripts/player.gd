@@ -8,6 +8,8 @@ const JUMP_VELOCITY = -600.0
 const MAX_HEALTH = 100
 var logtag :String = "PlayerScript"
 @export var healthBar: Node2D = null
+
+var collectibles: Array = []
 enum playerMotionStates {
 	idle,
 	walk,
