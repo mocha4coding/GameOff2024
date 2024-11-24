@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://ujcg6hciboj1"]
+
+[ext_resource type="Script" path="res://scripts/spanw_point_obstacle.gd" id="1_7f30y"]
+[ext_resource type="Texture2D" uid="uid://ciflncfovalt3" path="res://assets/decorations/spawnpointobstacle.png" id="2_6suv6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ofxlh"]
+size = Vector2(292, 148)
+
+[node name="SpanwPointObstacle" type="RigidBody2D"]
+script = ExtResource("1_7f30y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_6suv6")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-101, -42, -16, -91, 95, -97, 138, 99, -111, 102)
+
+[node name="playerDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="playerDetector"]
+position = Vector2(15, 31)
+shape = SubResource("RectangleShape2D_ofxlh")
+
+[connection signal="body_entered" from="playerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="playerDetector" to="." method="_on_player_detector_body_exited"]

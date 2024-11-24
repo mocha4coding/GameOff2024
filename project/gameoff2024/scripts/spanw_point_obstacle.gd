@@ -1,5 +1,6 @@
 extends RigidBody2D
 
+
 var player: Player
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,22 +26,6 @@ func playerEnteredPlayerDetector(body: Node2D) -> void:
 	if body is Player:
 		player = body
 		print("Box has detected player")
-
-func _on_player_detector_body_entered(body: Node2D) -> void:
-	playerEnteredPlayerDetector(body)
-
-
-func _on_player_detector_body_exited(body: Node2D) -> void:
-	handlePlayerLeaving(body)
-
-
-func _on_player_detector_2_body_entered(body: Node2D) -> void:
-	playerEnteredPlayerDetector(body)
-
-
-func _on_player_detector_2_body_exited(body: Node2D) -> void:
-	handlePlayerLeaving(body)
-		
 		
 func handlePlayerLeaving(body:Node2D) -> void:
 	if body is Player: 
@@ -49,3 +34,11 @@ func handlePlayerLeaving(body:Node2D) -> void:
 			player.playerMotionMode = player.playerMotionStates.idle
 			player = null
 			print("Player has left the box")
+
+
+func _on_player_detector_body_entered(body: Node2D) -> void:
+	playerEnteredPlayerDetector(body)
+
+
+func _on_player_detector_body_exited(body: Node2D) -> void:
+	handlePlayerLeaving(body)

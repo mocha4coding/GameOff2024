@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://d05bk0f5lesy1"]
+
+[ext_resource type="Texture2D" uid="uid://c2tejoltl00ds" path="res://assets/decorations/FireTorch.png" id="1_gyo2o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmg80"]
+atlas = ExtResource("1_gyo2o")
+region = Rect2(0, 0, 67, 68)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qr4do"]
+atlas = ExtResource("1_gyo2o")
+region = Rect2(67, 0, 67, 68)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_om4v8"]
+atlas = ExtResource("1_gyo2o")
+region = Rect2(134, 0, 67, 68)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqn6f"]
+atlas = ExtResource("1_gyo2o")
+region = Rect2(201, 0, 67, 68)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yqalk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dmg80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qr4do")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_om4v8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqn6f")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="FireTorch" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_yqalk")
+autoplay = "default"
+frame_progress = 0.920135

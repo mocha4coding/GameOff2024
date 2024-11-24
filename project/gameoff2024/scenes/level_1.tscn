@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=51 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://1e60gq0ynhjy" path="res://assets/decorations/starting point.png" id="9_mgm6h"]
 [ext_resource type="Texture2D" uid="uid://v4cjw82rk2od" path="res://assets/decorations/spawnpointwall.png" id="10_j0kb8"]
 [ext_resource type="Texture2D" uid="uid://ynd7tntqjuwg" path="res://assets/decorations/spawnpointpillardecor.png" id="11_gqvmr"]
-[ext_resource type="Texture2D" uid="uid://ciflncfovalt3" path="res://assets/decorations/spawnpointobstacle.png" id="12_y1nda"]
+[ext_resource type="PackedScene" uid="uid://d05bk0f5lesy1" path="res://scenes/fire_torch.tscn" id="12_j0i8y"]
 [ext_resource type="Texture2D" uid="uid://bvbtqc1rmn2sx" path="res://assets/decorations/spawnPointPalaceGroundFloor.png" id="13_dloec"]
 [ext_resource type="Texture2D" uid="uid://blbdan3pjk4bl" path="res://assets/decorations/spawnPointPalaceGroundFloorWall.png" id="14_g0x1k"]
 [ext_resource type="PackedScene" uid="uid://xt050ibvxkdi" path="res://scenes/animatable_door.tscn" id="15_5sf47"]
@@ -29,8 +29,13 @@
 [ext_resource type="PackedScene" uid="uid://bd3ftl0ow7t2" path="res://scenes/compass_rotateable.tscn" id="24_7apwo"]
 [ext_resource type="Texture2D" uid="uid://be8lcal1lqfv" path="res://assets/decorations/FireLavaShelterPlatform.png" id="24_786im"]
 [ext_resource type="Texture2D" uid="uid://dmxonb1b1h0u6" path="res://assets/decorations/TempleFloor.png" id="25_35p76"]
+[ext_resource type="Texture2D" uid="uid://nv4nwvnk7aan" path="res://assets/decorations/NaagMandirPillars.png" id="25_tu4fj"]
+[ext_resource type="Texture2D" uid="uid://ckn0dqt2pqspv" path="res://assets/decorations/NaagMandirWall.png" id="26_ndlfx"]
+[ext_resource type="Texture2D" uid="uid://daaearhb0152n" path="res://assets/decorations/Naagraj.png" id="27_mi5a0"]
 [ext_resource type="Script" path="res://scripts/barrel_roll_handler.gd" id="29_aytc5"]
+[ext_resource type="PackedScene" uid="uid://ujcg6hciboj1" path="res://scenes/spanw_point_obstacle.tscn" id="31_5afwi"]
 [ext_resource type="PackedScene" uid="uid://byjg55q0bx0ii" path="res://scenes/naagmani.tscn" id="31_nk8px"]
+[ext_resource type="PackedScene" uid="uid://epbb1qmmcvqs" path="res://scenes/enemy.tscn" id="36_2c2jr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mraxs"]
 radius = 325.73
@@ -160,6 +165,8 @@ script = ExtResource("1_hqld2")
 
 [node name="Player" parent="." node_paths=PackedStringArray("healthBar") instance=ExtResource("1_icsw8")]
 position = Vector2(165, 695)
+collision_layer = 5
+collision_mask = 5
 healthBar = NodePath("../CanvasLayer/PlayerHealthBar")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -269,6 +276,9 @@ z_index = -2
 position = Vector2(396, 509)
 texture = ExtResource("10_j0kb8")
 
+[node name="FireTorch" parent="LevelDecorations/BackgroundItems/Spawnpointwall" instance=ExtResource("12_j0i8y")]
+position = Vector2(722, 271)
+
 [node name="SpawnPointPillarDecor" type="Node2D" parent="LevelDecorations/BackgroundItems"]
 
 [node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/BackgroundItems/SpawnPointPillarDecor"]
@@ -276,15 +286,6 @@ position = Vector2(1076, 558)
 texture = ExtResource("11_gqvmr")
 
 [node name="SpawnPointFirstObstacle" type="Node2D" parent="LevelDecorations"]
-
-[node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/SpawnPointFirstObstacle"]
-position = Vector2(1163, 934)
-texture = ExtResource("12_y1nda")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="LevelDecorations/SpawnPointFirstObstacle"]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelDecorations/SpawnPointFirstObstacle/StaticBody2D"]
-polygon = PackedVector2Array(1079, 856, 1054, 956, 1295, 963, 1257, 805)
 
 [node name="SpawnPointPalaceGroundFloor" type="Node2D" parent="LevelDecorations"]
 
@@ -301,6 +302,11 @@ polygon = PackedVector2Array(1681, 898, 2005, 724, 2005, 682, 3644, 682, 3641, 1
 [node name="Stairs" type="Sprite2D" parent="LevelDecorations/SpawnPointPalaceGroundFloor"]
 position = Vector2(3436, 658)
 texture = ExtResource("15_73yso")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="LevelDecorations/SpawnPointPalaceGroundFloor/Stairs"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LevelDecorations/SpawnPointPalaceGroundFloor/Stairs/StaticBody2D"]
+polygon = PackedVector2Array(-116, 25, 31, -49, 178, -50, 180, 27)
 
 [node name="SpawnPointPalaceGroundFloorWall" type="Node2D" parent="LevelDecorations"]
 z_index = -1
@@ -383,7 +389,7 @@ position = Vector2(3541, 243)
 texture = ExtResource("20_2d7pp")
 
 [node name="FireLavaShelter" type="Node2D" parent="LevelDecorations"]
-position = Vector2(294, 15)
+position = Vector2(494, 15)
 
 [node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/FireLavaShelter"]
 z_index = -1
@@ -399,6 +405,7 @@ shape = SubResource("RectangleShape2D_4iptg")
 [node name="TempleFloor" type="Node2D" parent="LevelDecorations"]
 
 [node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/TempleFloor"]
+z_index = 2
 position = Vector2(9506, 1020)
 texture = ExtResource("25_35p76")
 
@@ -407,6 +414,35 @@ texture = ExtResource("25_35p76")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelDecorations/TempleFloor/StaticBody2D"]
 position = Vector2(9504, 1015)
 shape = SubResource("RectangleShape2D_jjqmx")
+
+[node name="NaagrajMandir" type="Node2D" parent="LevelDecorations"]
+
+[node name="NaagrajMandirPillar" type="Sprite2D" parent="LevelDecorations/NaagrajMandir"]
+z_index = 1
+position = Vector2(9631, 569)
+texture = ExtResource("25_tu4fj")
+
+[node name="NaagrajMandirWall" type="Sprite2D" parent="LevelDecorations/NaagrajMandir"]
+z_index = -2
+position = Vector2(9646, 677)
+texture = ExtResource("26_ndlfx")
+
+[node name="Naagraj" type="Sprite2D" parent="LevelDecorations/NaagrajMandir"]
+z_index = -1
+position = Vector2(9615, 772)
+texture = ExtResource("27_mi5a0")
+
+[node name="FireTorch" parent="LevelDecorations/NaagrajMandir" instance=ExtResource("12_j0i8y")]
+position = Vector2(8844, 557)
+
+[node name="FireTorch2" parent="LevelDecorations/NaagrajMandir" instance=ExtResource("12_j0i8y")]
+position = Vector2(9214, 558)
+
+[node name="FireTorch3" parent="LevelDecorations/NaagrajMandir" instance=ExtResource("12_j0i8y")]
+position = Vector2(10027, 556)
+
+[node name="FireTorch4" parent="LevelDecorations/NaagrajMandir" instance=ExtResource("12_j0i8y")]
+position = Vector2(10418, 556)
 
 [node name="Box" parent="." instance=ExtResource("20_ittnv")]
 position = Vector2(2122, 629)
@@ -585,10 +621,11 @@ script = ExtResource("29_aytc5")
 
 [node name="Barrel" parent="Barrels" instance=ExtResource("16_wk7eq")]
 position = Vector2(3732, 933)
-collision_layer = 2
 
 [node name="Barrel2" parent="Barrels" instance=ExtResource("16_wk7eq")]
 position = Vector2(7002, 935)
+collision_layer = 4
+collision_mask = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Barrels"]
 libraries = {
@@ -616,7 +653,25 @@ libraries = {
 }
 
 [node name="Naagmani" parent="." instance=ExtResource("31_nk8px")]
-position = Vector2(3230, 319)
+position = Vector2(3231, 332)
+
+[node name="SpanwPointObstacle" parent="." instance=ExtResource("31_5afwi")]
+position = Vector2(1176, 870)
+mass = 2.0
+
+[node name="Enemy" parent="." instance=ExtResource("36_2c2jr")]
+position = Vector2(8846, 822)
+
+[node name="Enemy2" parent="." instance=ExtResource("36_2c2jr")]
+position = Vector2(9187, 819)
+
+[node name="Enemy3" parent="." instance=ExtResource("36_2c2jr")]
+position = Vector2(10047, 822)
+isAnimatedSpriteFliiped = true
+
+[node name="Enemy4" parent="." instance=ExtResource("36_2c2jr")]
+position = Vector2(10428, 825)
+isAnimatedSpriteFliiped = true
 
 [connection signal="body_entered" from="Barrels/ChandeDirection" to="Barrels" method="_on_chande_direction_body_entered"]
 [connection signal="body_entered" from="Barrels/ChandeDirection2" to="Barrels" method="_on_chande_direction_2_body_entered"]
