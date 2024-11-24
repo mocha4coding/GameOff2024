@@ -23,6 +23,7 @@ var currentHealth: float = MAX_HEALTH - 20
 var playerMotionMode: int = playerMotionStates.idle 
 var playerDirection: int = 0
 var playerHorizontalDirectionVector: Vector2 = Vector2.ZERO
+var enemies: Array[Enemy] = []
 
 func _physics_process(delta: float) -> void:
 	
@@ -36,10 +37,21 @@ func _physics_process(delta: float) -> void:
 	if currentHealth > 0 :
 		handleVerticalMotion()
 		handleHorizontalMotion()
+		handleAttack()
 	handlePlayerAnimationSprite()
 	syncPlayerHealthWithHealthBar()
 
 	move_and_slide()
+
+func handleAttack():
+	if Input.is_action_pressed("attack"):
+		playerMotionMode = playerMotionStates.attack
+	for enemy in enemies:
+		if enemy.enemyHealth > 0:
+			print("Hitting enemy")
+			enemy.getHit(10)
+		else:
+			enemies.erase(enemy)
 	
 func handleVerticalMotion() -> void:
 	# Handle jump.
@@ -62,7 +74,7 @@ func handleHorizontalMotion() -> void:
 			playerMotionMode = playerMotionStates.walk
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
-		if otherAnimationPlayingWhileIdle():
+		if !otherAnimationPlayingWhileIdle():
 			playerMotionMode = playerMotionStates.idle
 
 func otherAnimationPlayingWhileIdle() -> bool: 
@@ -74,6 +86,9 @@ func otherAnimationPlayingWhileIdle() -> bool:
 		return true
 	
 	if playerMotionMode == playerMotionStates.deathAccident: 
+		return true
+	
+	if playerMotionMode == playerMotionStates.attack:
 		return true
 		
 	return false
@@ -90,7 +105,10 @@ func handlePlayerAnimationSprite() -> void:
 	elif playerMotionMode == playerMotionStates.pushPull:
 		animated_sprite_2d.play("push")
 	elif playerMotionMode == playerMotionStates.deathAccident:
-		animated_sprite_2d.play("deathAccident")
+		
+			animated_sprite_2d.play("deathAccident")
+			
+	
 	else:
 		animated_sprite_2d.play("idle")
 	
@@ -119,6 +137,7 @@ func reduceHealth(damage: float) -> void:
 	if currentHealth <= 0:
 		playerMotionMode = playerMotionStates.deathAccident
 		
+		
 	
 	
 func fade_out():
@@ -128,3 +147,23 @@ func fade_out():
 func fade_in():
 	var tween = get_tree().create_tween()
 	tween.tween_property(animated_sprite_2d, "modulate:a", 1.0, 3.0)
+
+
+func _on_sword_attack_area_body_entered(body: Node2D) -> void:
+	if body is Enemy:
+		if body.enemyHealth > 0:
+			enemies.append(body)
+
+
+func _on_sword_attack_area_body_exited(body: Node2D) -> void:
+	if body is Enemy:
+		enemies.erase(body)
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if animated_sprite_2d.animation == "deathAccident":
+		GameManager.respawnPlayer()
+
+func resetPlayer():
+	playerMotionMode = playerMotionStates.idle
+	currentHealth = MAX_HEALTH

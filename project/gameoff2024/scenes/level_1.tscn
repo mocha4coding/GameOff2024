@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=52 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -34,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://daaearhb0152n" path="res://assets/decorations/Naagraj.png" id="27_mi5a0"]
 [ext_resource type="Script" path="res://scripts/barrel_roll_handler.gd" id="29_aytc5"]
 [ext_resource type="PackedScene" uid="uid://ujcg6hciboj1" path="res://scenes/spanw_point_obstacle.tscn" id="31_5afwi"]
+[ext_resource type="PackedScene" uid="uid://dov3ew0vgclut" path="res://scenes/checkpoint.tscn" id="31_ai22p"]
 [ext_resource type="PackedScene" uid="uid://byjg55q0bx0ii" path="res://scenes/naagmani.tscn" id="31_nk8px"]
 [ext_resource type="PackedScene" uid="uid://epbb1qmmcvqs" path="res://scenes/enemy.tscn" id="36_2c2jr"]
 
@@ -601,6 +602,19 @@ position = Vector2(7032, 966)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FireFloor/StaticBody2D"]
 position = Vector2(5367, 1104)
 shape = SubResource("RectangleShape2D_ruv6i")
+
+[node name="Checkpoint" parent="FireFloor" instance=ExtResource("31_ai22p")]
+position = Vector2(160, 629)
+isSpawnPoint = true
+
+[node name="Checkpoint2" parent="FireFloor" instance=ExtResource("31_ai22p")]
+position = Vector2(3776, 199)
+
+[node name="Checkpoint3" parent="FireFloor" instance=ExtResource("31_ai22p")]
+position = Vector2(5510, 589)
+
+[node name="Checkpoint4" parent="FireFloor" instance=ExtResource("31_ai22p")]
+position = Vector2(7189, 824)
 
 [node name="PalaceFirstFloorSpawnPoint" type="Marker2D" parent="."]
 position = Vector2(3540, 203)

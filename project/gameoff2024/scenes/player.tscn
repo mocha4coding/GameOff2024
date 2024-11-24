@@ -1,15 +1,40 @@
-[gd_scene load_steps=37 format=3 uid="uid://devkms374nn81"]
+[gd_scene load_steps=45 format=3 uid="uid://devkms374nn81"]
 
 [ext_resource type="Texture2D" uid="uid://duontlnl0xwhq" path="res://assets/player/walk.png" id="1_6geto"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_7tms0"]
 [ext_resource type="Texture2D" uid="uid://hbcholewlm3c" path="res://assets/player/deathAccident.png" id="2_5l3hy"]
 [ext_resource type="Texture2D" uid="uid://dxk4651u62nv" path="res://assets/player/idle.png" id="2_jc16p"]
+[ext_resource type="Texture2D" uid="uid://n3gnq5jjtcf6" path="res://assets/player/attack.png" id="2_r3pjl"]
 [ext_resource type="Texture2D" uid="uid://cxpcx0p7u1sx6" path="res://assets/player/jump.png" id="3_xa4u2"]
 [ext_resource type="Texture2D" uid="uid://pciospdhjkdw" path="res://assets/player/push.png" id="4_lpifg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7txes"]
 radius = 32.0
 height = 138.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uq3ux"]
+atlas = ExtResource("2_r3pjl")
+region = Rect2(0, 0, 247, 158)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klcvw"]
+atlas = ExtResource("2_r3pjl")
+region = Rect2(247, 0, 247, 158)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kluun"]
+atlas = ExtResource("2_r3pjl")
+region = Rect2(494, 0, 247, 158)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r22a6"]
+atlas = ExtResource("2_r3pjl")
+region = Rect2(741, 0, 247, 158)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6o225"]
+atlas = ExtResource("2_r3pjl")
+region = Rect2(988, 0, 247, 158)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqbfa"]
+atlas = ExtResource("2_r3pjl")
+region = Rect2(1235, 0, 247, 158)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_33xxh"]
 atlas = ExtResource("2_5l3hy")
@@ -121,10 +146,28 @@ region = Rect2(1482, 0, 247, 158)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i04jy"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uq3ux")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_klcvw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kluun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r22a6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6o225")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqbfa")
+}],
 "loop": true,
 "name": &"attack",
-"speed": 5.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -142,12 +185,12 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_spoq6")
 }],
-"loop": true,
+"loop": false,
 "name": &"deathAccident",
 "speed": 5.0
 }, {
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"deathFight",
 "speed": 5.0
 }, {
@@ -241,6 +284,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_8w33l"]
 radius = 30.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dq7pc"]
+size = Vector2(227, 126)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_7tms0")
 
@@ -251,7 +297,6 @@ shape = SubResource("CapsuleShape2D_7txes")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_i04jy")
 animation = &"deathAccident"
-frame_progress = 0.839209
 
 [node name="HitArea" type="Area2D" parent="."]
 
@@ -259,3 +304,14 @@ frame_progress = 0.839209
 position = Vector2(-1, 9)
 shape = SubResource("CircleShape2D_8w33l")
 debug_color = Color(0.924718, 0.244086, 0.324969, 0.42)
+
+[node name="SwordAttackArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordAttackArea"]
+position = Vector2(-0.5, 19)
+shape = SubResource("RectangleShape2D_dq7pc")
+debug_color = Color(0.367595, 0.613009, 0.173922, 0.42)
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="SwordAttackArea" to="." method="_on_sword_attack_area_body_entered"]
+[connection signal="body_exited" from="SwordAttackArea" to="." method="_on_sword_attack_area_body_exited"]

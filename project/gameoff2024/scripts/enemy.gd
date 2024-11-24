@@ -11,7 +11,7 @@ var enemyHealth:float = 30
 var spawnPosition: Vector2 = global_position
 var gotHit: bool = false
 var enemyMotionMode: enemyMotionStates = enemyMotionStates.idleMotion
-var isEnemyUnlocked: bool = false
+var isEnemyUnlocked: bool = true
 enum enemyMotionStates {
 	idleFrozen,
 	idleMotion,
@@ -41,7 +41,10 @@ func _physics_process(delta):
 			elif player.position.x - position.x < 0:
 				animated_sprite_2d.flip_h = true
 	else:
-		animated_sprite_2d.play("idleFrozen")
+		if enemyHealth >0:
+			animated_sprite_2d.play("idleFrozen")
+		else:
+			animated_sprite_2d.play("death")
 	
 func handleIdleState():
 	animated_sprite_2d.play("idleMotion")
@@ -51,11 +54,16 @@ func getHit(damageAmount: float):
 	if enemyHealth > 0:
 		enemyHealth -= damageAmount
 		gotHit = true
+	else:
+		isEnemyUnlocked = false
 
 func attackOnPlayer():
 	animated_sprite_2d.play("attack")
 	enemyMotionMode = enemyMotionStates.attack
-	player.reduceHealth(0.05)
+	if player.currentHealth > 0:
+		player.reduceHealth(0.05)
+	else:
+		attackModeOn = false
 	
 	
 
