@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=59 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -37,6 +37,63 @@
 [ext_resource type="PackedScene" uid="uid://dov3ew0vgclut" path="res://scenes/checkpoint.tscn" id="31_ai22p"]
 [ext_resource type="PackedScene" uid="uid://byjg55q0bx0ii" path="res://scenes/naagmani.tscn" id="31_nk8px"]
 [ext_resource type="PackedScene" uid="uid://epbb1qmmcvqs" path="res://scenes/enemy.tscn" id="36_2c2jr"]
+[ext_resource type="Script" path="res://scripts/press_e_to_interact.gd" id="38_c8e1i"]
+[ext_resource type="Texture2D" uid="uid://dur3waeg02e2v" path="res://assets/interactables/FirstEInstruction.png" id="39_w852n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4hxtl"]
+radius = 116.709
+
+[sub_resource type="Animation" id="Animation_byfcf"]
+resource_name = "PushPullScrolls"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PressEToInteract/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2120, -150), Vector2(2120, 181)]
+}
+
+[sub_resource type="Animation" id="Animation_vad0k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PressEToInteract/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1771, -140)]
+}
+
+[sub_resource type="Animation" id="Animation_tqcnm"]
+resource_name = "PushPullScrollsBackward"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PressEToInteract/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2120, 181), Vector2(2120, -136)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fmvem"]
+_data = {
+"PushPullScrolls": SubResource("Animation_byfcf"),
+"PushPullScrollsBackward": SubResource("Animation_tqcnm"),
+"RESET": SubResource("Animation_vad0k")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mraxs"]
 radius = 325.73
@@ -163,6 +220,28 @@ _data = {
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_hqld2")
+
+[node name="PopUps" type="Node2D" parent="."]
+
+[node name="PressEToInteract" type="Node2D" parent="PopUps"]
+script = ExtResource("38_c8e1i")
+
+[node name="PlayerDetector" type="Area2D" parent="PopUps/PressEToInteract"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PopUps/PressEToInteract/PlayerDetector"]
+position = Vector2(2088, 577)
+shape = SubResource("CircleShape2D_4hxtl")
+debug_color = Color(0.586093, 0.546205, 0.16861, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="PopUps/PressEToInteract"]
+z_index = 5
+position = Vector2(1771, -140)
+texture = ExtResource("39_w852n")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PopUps"]
+libraries = {
+"": SubResource("AnimationLibrary_fmvem")
+}
 
 [node name="Player" parent="." node_paths=PackedStringArray("healthBar") instance=ExtResource("1_icsw8")]
 position = Vector2(165, 695)
@@ -669,24 +748,27 @@ libraries = {
 [node name="Naagmani" parent="." instance=ExtResource("31_nk8px")]
 position = Vector2(3231, 332)
 
+[node name="Enemy" parent="Naagmani" instance=ExtResource("36_2c2jr")]
+position = Vector2(5615, 490)
+
+[node name="Enemy2" parent="Naagmani" instance=ExtResource("36_2c2jr")]
+position = Vector2(5956, 487)
+
+[node name="Enemy3" parent="Naagmani" instance=ExtResource("36_2c2jr")]
+position = Vector2(6816, 490)
+isAnimatedSpriteFliiped = true
+
+[node name="Enemy4" parent="Naagmani" instance=ExtResource("36_2c2jr")]
+position = Vector2(7197, 493)
+isAnimatedSpriteFliiped = true
+
 [node name="SpanwPointObstacle" parent="." instance=ExtResource("31_5afwi")]
 position = Vector2(1176, 870)
 mass = 2.0
 
-[node name="Enemy" parent="." instance=ExtResource("36_2c2jr")]
-position = Vector2(8846, 822)
-
-[node name="Enemy2" parent="." instance=ExtResource("36_2c2jr")]
-position = Vector2(9187, 819)
-
-[node name="Enemy3" parent="." instance=ExtResource("36_2c2jr")]
-position = Vector2(10047, 822)
-isAnimatedSpriteFliiped = true
-
-[node name="Enemy4" parent="." instance=ExtResource("36_2c2jr")]
-position = Vector2(10428, 825)
-isAnimatedSpriteFliiped = true
-
+[connection signal="body_entered" from="PopUps/PressEToInteract/PlayerDetector" to="PopUps/PressEToInteract" method="_on_player_detector_body_entered"]
+[connection signal="body_exited" from="PopUps/PressEToInteract/PlayerDetector" to="PopUps/PressEToInteract" method="_on_player_detector_body_exited"]
+[connection signal="animation_finished" from="PopUps/AnimationPlayer" to="PopUps/PressEToInteract" method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="Barrels/ChandeDirection" to="Barrels" method="_on_chande_direction_body_entered"]
 [connection signal="body_entered" from="Barrels/ChandeDirection2" to="Barrels" method="_on_chande_direction_2_body_entered"]
 [connection signal="animation_finished" from="Level_1_animation_player_general" to="." method="_on_level_1_animation_player_general_animation_finished"]
