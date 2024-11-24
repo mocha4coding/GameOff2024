@@ -3,6 +3,7 @@ extends Node2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var gate_moveable: Sprite2D = $GateMoveable
 
+var isPlayerInFrontOfGate: bool = false
 
 var isKeyPresent: bool = false
 var isGateOpen: bool = false
@@ -21,9 +22,14 @@ func _process(delta: float) -> void:
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
 	if body is Player:
-		isKeyPresent = true
+		isPlayerInFrontOfGate = true
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "liftGate":
 		isGateOpen = true
+
+
+func _on_player_detector_body_exited(body: Node2D) -> void:
+	if body is Player:
+		isPlayerInFrontOfGate = false

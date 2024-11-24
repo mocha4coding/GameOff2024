@@ -1,11 +1,10 @@
 extends Node2D
-
-@onready var animatable_door: Node2D = $LevelDecorations/SpawnPointPalaceGroundFloorWall/AnimatableDoor
+@onready var animatable_door: Node2D = $PopUps/GatePuzzle/AnimatableDoor
 @onready var player: Player = $Player
 @onready var palace_first_floor_spawn_point: Marker2D = $PalaceFirstFloorSpawnPoint
 @onready var barrel_animation_player: AnimationPlayer = $Barrels/AnimationPlayer
 @onready var level_1_animation_player_general: AnimationPlayer = $Level_1_animation_player_general
-@onready var compass_rotateable: Node2D = $CompassRotateable
+@onready var compass_rotateable: Node2D = $PopUps/CompassPuzzle/CompassRotateable
 
 var playerInGroundFloor: bool = true
 var barrelVisible: bool = false
