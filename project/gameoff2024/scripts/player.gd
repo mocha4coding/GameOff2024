@@ -15,7 +15,9 @@ enum playerMotionStates {
 	walk,
 	jump,
 	attack,
-	pushPull
+	pushPull,
+	deathFight,
+	deathAccident
 }
 var currentHealth: float = MAX_HEALTH - 20
 var playerMotionMode: int = playerMotionStates.idle 
@@ -31,8 +33,9 @@ func _physics_process(delta: float) -> void:
 	
 	var input_direction =  Vector2(Input.get_axis("left", "right"), 0).normalized()
 	playerHorizontalDirectionVector = input_direction
-	handleVerticalMotion()
-	handleHorizontalMotion()
+	if currentHealth > 0 :
+		handleVerticalMotion()
+		handleHorizontalMotion()
 	handlePlayerAnimationSprite()
 	syncPlayerHealthWithHealthBar()
 
@@ -59,9 +62,22 @@ func handleHorizontalMotion() -> void:
 			playerMotionMode = playerMotionStates.walk
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
-		if playerMotionMode != playerMotionStates.jump && playerMotionMode != playerMotionStates.pushPull:
+		if otherAnimationPlayingWhileIdle():
 			playerMotionMode = playerMotionStates.idle
 
+func otherAnimationPlayingWhileIdle() -> bool: 
+	 
+	if playerMotionMode == playerMotionStates.jump: 
+		return true
+	 
+	if playerMotionMode == playerMotionStates.pushPull:
+		return true
+	
+	if playerMotionMode == playerMotionStates.deathAccident: 
+		return true
+		
+	return false
+	
 func handlePlayerAnimationSprite() -> void:
 	if playerMotionMode ==  playerMotionStates.idle:
 		animated_sprite_2d.play("idle")
@@ -73,6 +89,8 @@ func handlePlayerAnimationSprite() -> void:
 		animated_sprite_2d.play("attack")
 	elif playerMotionMode == playerMotionStates.pushPull:
 		animated_sprite_2d.play("push")
+	elif playerMotionMode == playerMotionStates.deathAccident:
+		animated_sprite_2d.play("deathAccident")
 	else:
 		animated_sprite_2d.play("idle")
 	
@@ -98,6 +116,9 @@ func syncPlayerHealthWithHealthBar():
 		
 func reduceHealth(damage: float) -> void:
 	currentHealth -= damage
+	if currentHealth <= 0:
+		playerMotionMode = playerMotionStates.deathAccident
+		
 	
 	
 func fade_out():

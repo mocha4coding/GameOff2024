@@ -1,7 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://devkms374nn81"]
+[gd_scene load_steps=37 format=3 uid="uid://devkms374nn81"]
 
 [ext_resource type="Texture2D" uid="uid://duontlnl0xwhq" path="res://assets/player/walk.png" id="1_6geto"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_7tms0"]
+[ext_resource type="Texture2D" uid="uid://hbcholewlm3c" path="res://assets/player/deathAccident.png" id="2_5l3hy"]
 [ext_resource type="Texture2D" uid="uid://dxk4651u62nv" path="res://assets/player/idle.png" id="2_jc16p"]
 [ext_resource type="Texture2D" uid="uid://cxpcx0p7u1sx6" path="res://assets/player/jump.png" id="3_xa4u2"]
 [ext_resource type="Texture2D" uid="uid://pciospdhjkdw" path="res://assets/player/push.png" id="4_lpifg"]
@@ -9,6 +10,26 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7txes"]
 radius = 32.0
 height = 138.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33xxh"]
+atlas = ExtResource("2_5l3hy")
+region = Rect2(0, 0, 247, 158)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tkyq"]
+atlas = ExtResource("2_5l3hy")
+region = Rect2(247, 0, 247, 158)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2s30"]
+atlas = ExtResource("2_5l3hy")
+region = Rect2(494, 0, 247, 158)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t4562"]
+atlas = ExtResource("2_5l3hy")
+region = Rect2(741, 0, 247, 158)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spoq6"]
+atlas = ExtResource("2_5l3hy")
+region = Rect2(988, 0, 247, 158)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_trepi"]
 atlas = ExtResource("2_jc16p")
@@ -100,6 +121,36 @@ region = Rect2(1482, 0, 247, 158)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i04jy"]
 animations = [{
+"frames": [],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33xxh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tkyq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2s30")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t4562")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spoq6")
+}],
+"loop": true,
+"name": &"deathAccident",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"deathFight",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_trepi")
@@ -199,7 +250,8 @@ shape = SubResource("CapsuleShape2D_7txes")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_i04jy")
-animation = &"idle"
+animation = &"deathAccident"
+frame_progress = 0.839209
 
 [node name="HitArea" type="Area2D" parent="."]
 
