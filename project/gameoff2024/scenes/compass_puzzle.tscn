@@ -1,0 +1,84 @@
+[gd_scene load_steps=11 format=3 uid="uid://d0q1tc80dest0"]
+
+[ext_resource type="Script" path="res://scripts/compass_puzzle.gd" id="1_35eye"]
+[ext_resource type="Texture2D" uid="uid://cvgq16mp1dtij" path="res://assets/interactables/compassPuzzle.png" id="1_mtkql"]
+[ext_resource type="Texture2D" uid="uid://bb4fscndqpdrn" path="res://assets/interactables/ECorrectButton.png" id="2_pqgtf"]
+[ext_resource type="Texture2D" uid="uid://b5o5pfxb674jt" path="res://assets/interactables/NWrongButton.png" id="3_aftt6"]
+[ext_resource type="Texture2D" uid="uid://ckkqd5g5jsgdg" path="res://assets/interactables/SCorrectButton.png" id="4_te8hg"]
+[ext_resource type="Texture2D" uid="uid://3xmub56wj2bg" path="res://assets/interactables/WWrontButton.png" id="5_01ixs"]
+[ext_resource type="Texture2D" uid="uid://bcacy33d3tu8h" path="res://assets/interactables/NNormalButton.png" id="6_u56bt"]
+[ext_resource type="Texture2D" uid="uid://cd75wn12yhcto" path="res://assets/interactables/SNormalButton.png" id="7_ggrdc"]
+[ext_resource type="Texture2D" uid="uid://djptxxic2v72m" path="res://assets/interactables/ENormalButton.png" id="8_uqmiv"]
+[ext_resource type="Texture2D" uid="uid://dgdrlueeo2865" path="res://assets/interactables/WNormalButton.png" id="9_qrmoy"]
+
+[node name="CompassPuzzle" type="Node2D"]
+script = ExtResource("1_35eye")
+
+[node name="Puzzle" type="Sprite2D" parent="."]
+z_index = 15
+position = Vector2(911, 444)
+texture = ExtResource("1_mtkql")
+
+[node name="ECorrectButton" type="Sprite2D" parent="Puzzle"]
+visible = false
+z_index = 16
+position = Vector2(38, 128)
+texture = ExtResource("2_pqgtf")
+
+[node name="NWrongButton" type="Sprite2D" parent="Puzzle"]
+visible = false
+z_index = 16
+position = Vector2(-114, 128)
+texture = ExtResource("3_aftt6")
+
+[node name="SCorrectButton" type="Sprite2D" parent="Puzzle"]
+visible = false
+z_index = 16
+position = Vector2(-38, 128)
+texture = ExtResource("4_te8hg")
+
+[node name="WWrontButton" type="Sprite2D" parent="Puzzle"]
+visible = false
+z_index = 16
+position = Vector2(114, 128)
+texture = ExtResource("5_01ixs")
+
+[node name="NButton" type="TextureButton" parent="Puzzle"]
+offset_left = -138.0
+offset_top = 102.0
+offset_right = -92.0
+offset_bottom = 152.0
+toggle_mode = true
+keep_pressed_outside = true
+texture_normal = ExtResource("6_u56bt")
+texture_pressed = ExtResource("3_aftt6")
+
+[node name="SButton" type="TextureButton" parent="Puzzle"]
+offset_left = -61.0
+offset_top = 103.0
+offset_right = -15.0
+offset_bottom = 153.0
+toggle_mode = true
+texture_normal = ExtResource("7_ggrdc")
+texture_pressed = ExtResource("4_te8hg")
+
+[node name="EButton" type="TextureButton" parent="Puzzle"]
+offset_left = 15.0
+offset_top = 103.0
+offset_right = 61.0
+offset_bottom = 153.0
+toggle_mode = true
+texture_normal = ExtResource("8_uqmiv")
+texture_pressed = ExtResource("2_pqgtf")
+
+[node name="WButton" type="TextureButton" parent="Puzzle"]
+offset_left = 91.0
+offset_top = 103.0
+offset_right = 137.0
+offset_bottom = 153.0
+toggle_mode = true
+texture_normal = ExtResource("9_qrmoy")
+texture_pressed = ExtResource("5_01ixs")
+
+[connection signal="pressed" from="Puzzle/NButton" to="." method="_on_n_button_pressed"]
+[connection signal="pressed" from="Puzzle/SButton" to="." method="_on_s_button_pressed"]

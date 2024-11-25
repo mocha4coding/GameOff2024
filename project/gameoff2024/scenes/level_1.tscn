@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=73 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dfpqw6w74tn4i" path="res://assets/interactables/GatePuzzle.png" id="6_revey"]
 [ext_resource type="Script" path="res://scripts/line_edit_gate_puzzle.gd" id="7_l3h3s"]
 [ext_resource type="PackedScene" uid="uid://j24tbbn6nn3a" path="res://scenes/player_damage_zone.tscn" id="7_vypnl"]
-[ext_resource type="Texture2D" uid="uid://cvgq16mp1dtij" path="res://assets/interactables/compassPuzzle.png" id="8_ppv5c"]
+[ext_resource type="PackedScene" uid="uid://d0q1tc80dest0" path="res://scenes/compass_puzzle.tscn" id="9_h2wfp"]
 [ext_resource type="Texture2D" uid="uid://1e60gq0ynhjy" path="res://assets/decorations/starting point.png" id="9_mgm6h"]
 [ext_resource type="Texture2D" uid="uid://v4cjw82rk2od" path="res://assets/decorations/spawnpointwall.png" id="10_j0kb8"]
 [ext_resource type="Texture2D" uid="uid://ynd7tntqjuwg" path="res://assets/decorations/spawnpointpillardecor.png" id="11_gqvmr"]
@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://chxwrgjf66m4b" path="res://assets/decorations/DoorWithoutGate.png" id="20_2d7pp"]
 [ext_resource type="PackedScene" uid="uid://bvj4yyx776uyu" path="res://scenes/box.tscn" id="20_ittnv"]
 [ext_resource type="PackedScene" uid="uid://dsp0hlu5hy6a1" path="res://scenes/fire.tscn" id="22_h4iph"]
+[ext_resource type="Texture2D" uid="uid://oilhml5ldyd1" path="res://assets/decorations/medusa.png" id="22_ouerp"]
 [ext_resource type="Texture2D" uid="uid://d1r6jglrc56qc" path="res://assets/decorations/firstfloorwall.png" id="23_rwylf"]
 [ext_resource type="PackedScene" uid="uid://bd3ftl0ow7t2" path="res://scenes/compass_rotateable.tscn" id="24_7apwo"]
 [ext_resource type="Texture2D" uid="uid://be8lcal1lqfv" path="res://assets/decorations/FireLavaShelterPlatform.png" id="24_786im"]
@@ -114,6 +115,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(3440, -268)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CompassPuzzleSet/CompassRotateable/CompassPuzzle:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-971, -864)]
+}
 
 [sub_resource type="Animation" id="Animation_2e3qk"]
 resource_name = "gatePuzzleScrollsDown"
@@ -145,11 +158,45 @@ tracks/0/keys = {
 "values": [Vector2(3571, 272), Vector2(3571, -268)]
 }
 
+[sub_resource type="Animation" id="Animation_ki6ey"]
+resource_name = "compassPuzzleScrollsDown"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CompassPuzzleSet/CompassRotateable/CompassPuzzle:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-971, -864), Vector2(-971, -480)]
+}
+
+[sub_resource type="Animation" id="Animation_krru8"]
+resource_name = "compassPuzzleScrollsUp"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CompassPuzzleSet/CompassRotateable/CompassPuzzle:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-971, -480), Vector2(-971, -864)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fmvem"]
 _data = {
 "PushPullScrolls": SubResource("Animation_byfcf"),
 "PushPullScrollsBackward": SubResource("Animation_tqcnm"),
 "RESET": SubResource("Animation_vad0k"),
+"compassPuzzleScrollsDown": SubResource("Animation_ki6ey"),
+"compassPuzzleScrollsUp": SubResource("Animation_krru8"),
 "gatePuzzleScrollsDown": SubResource("Animation_2e3qk"),
 "gatePuzzleScrollsUp": SubResource("Animation_npw1d")
 }
@@ -324,17 +371,15 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_u15e6")
 caret_blink = true
 script = ExtResource("7_l3h3s")
 
-[node name="CompassPuzzle" type="Node2D" parent="PopUps"]
+[node name="CompassPuzzleSet" type="Node2D" parent="PopUps"]
 position = Vector2(0, -1)
 
-[node name="Sprite2D" type="Sprite2D" parent="PopUps/CompassPuzzle"]
-z_index = 15
-position = Vector2(2150, -158)
-texture = ExtResource("8_ppv5c")
-
-[node name="CompassRotateable" parent="PopUps/CompassPuzzle" instance=ExtResource("24_7apwo")]
+[node name="CompassRotateable" parent="PopUps/CompassPuzzleSet" instance=ExtResource("24_7apwo")]
 z_index = -1
 position = Vector2(2162, 235)
+
+[node name="CompassPuzzle" parent="PopUps/CompassPuzzleSet/CompassRotateable" instance=ExtResource("9_h2wfp")]
+position = Vector2(-971, -864)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="PopUps"]
 libraries = {
@@ -462,6 +507,10 @@ position = Vector2(722, 271)
 [node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/BackgroundItems/SpawnPointPillarDecor"]
 position = Vector2(1076, 558)
 texture = ExtResource("11_gqvmr")
+
+[node name="Medusa" type="Sprite2D" parent="LevelDecorations/BackgroundItems/SpawnPointPillarDecor"]
+position = Vector2(1182, 617)
+texture = ExtResource("22_ouerp")
 
 [node name="SpawnPointFirstObstacle" type="Node2D" parent="LevelDecorations"]
 
@@ -864,6 +913,7 @@ mass = 2.0
 [connection signal="body_exited" from="PopUps/PressEToInteract/PlayerDetector" to="PopUps/PressEToInteract" method="_on_player_detector_body_exited"]
 [connection signal="animation_finished" from="PopUps/AnimationPlayer" to="PopUps/PressEToInteract" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="PopUps/AnimationPlayer" to="PopUps/GatePuzzle" method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="PopUps/AnimationPlayer" to="PopUps/CompassPuzzleSet/CompassRotateable" method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="Barrels/ChandeDirection" to="Barrels" method="_on_chande_direction_body_entered"]
 [connection signal="body_entered" from="Barrels/ChandeDirection2" to="Barrels" method="_on_chande_direction_2_body_entered"]
 [connection signal="animation_finished" from="Level_1_animation_player_general" to="." method="_on_level_1_animation_player_general_animation_finished"]

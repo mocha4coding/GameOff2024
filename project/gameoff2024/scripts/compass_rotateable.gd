@@ -5,6 +5,12 @@ extends Node2D
 var isPuzzleSolved: bool = false
 var isRotatedToOriginal: bool = false
 var bringBarrels: bool = false
+
+@onready var puzzle_animation_player: AnimationPlayer = $"../../AnimationPlayer"
+
+@onready var compass_puzzle: Node2D = $CompassPuzzle
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	animation_player.play("default")
@@ -12,17 +18,24 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if isPuzzleSolved && !isRotatedToOriginal:
+	if compass_puzzle.puzzleSolved && !isRotatedToOriginal:
 		isRotatedToOriginal = true
 		animation_player.play("rotateToOriginal")
+		puzzle_animation_player.play("compassPuzzleScrollsUp")
+	
+
+		
 
 
 func _on_playerdetector_body_entered(body: Node2D) -> void:
 	if body is Player:
-		isPuzzleSolved = true
+		#isPuzzleSolved = true
+		puzzle_animation_player.play("compassPuzzleScrollsDown")
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "rotateToOriginal":
 		bringBarrels = true
+	if anim_name == "compassPuzzleScrollsDown":
+		pass
 		

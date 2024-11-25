@@ -296,7 +296,6 @@ sprite_frames = SubResource("SpriteFrames_i04jy")
 animation = &"attack"
 frame = 1
 frame_progress = 0.260597
-flip_h = true
 
 [node name="SwordAttackArea" type="Area2D" parent="."]
 position = Vector2(-85, 3)

@@ -232,7 +232,7 @@ position = Vector2(-23, 0)
 sprite_frames = SubResource("SpriteFrames_h0ko7")
 animation = &"attack"
 autoplay = "idleFrozen"
-frame_progress = 0.845005
+frame_progress = 0.913583
 
 [node name="PlayerChaseAreaDetector" type="Area2D" parent="."]
 
