@@ -18,6 +18,7 @@ var enableMelee: bool = false
 var playerInHitBox: bool = false
 var enemyMotionMode: enemyMotionStates = enemyMotionStates.idleMotion
 var isEnemyUnlocked: bool = true
+var isDead: bool = false
 enum enemyMotionStates {
 	idleFrozen,
 	idleMotion,
@@ -32,38 +33,31 @@ func _ready():
 	
 	
 func _physics_process(delta):
-		
-		if animated_sprite_2d.flip_h == true:
-			hit_box.position = hit_box_left_position.position
+		if hit_box != null:
+			if animated_sprite_2d.flip_h == true:
+				hit_box.position = hit_box_left_position.position
+			else:
+				hit_box.position = hit_box_right_position.position
+		if enemyHealth <= 0 && !isDead:
+			animated_sprite_2d.play("death")
+			if hit_box  != null:
+				hit_box.queue_free()
 		else:
-			hit_box.position = hit_box_right_position.position
-			
-		if player != null:
-			enemyDirection = (player.global_position- global_position).normalized()
-			if chasePlayer:
-				if enemyDirection.x > 0 :
-					animated_sprite_2d.flip_h = false
-				elif enemyDirection.x < 0:
-					animated_sprite_2d.flip_h = true
-				
-				if enableMelee:
-					performMeleeAttack()
-					# if playerInHitBox then when animation finished reduce player health
+			if !isDead:
+				if player != null:
+					enemyDirection = (player.global_position- global_position).normalized()
+					if chasePlayer:
+						if enemyDirection.x > 0 :
+							animated_sprite_2d.flip_h = false
+						elif enemyDirection.x < 0:
+							animated_sprite_2d.flip_h = true
 						
+						if enableMelee:
+							performMeleeAttack()								
+						else:	
+							handlePlayerChase(delta)
 				else:
-					
-					
-					handlePlayerChase(delta)
-		else:
-			#if armor is unlocked then
-				#if armor is alive  
-					#if position is not same as spawn position walk to spawn position
-				#else 
-					#if dead animation not played
-						#player dead animation
-			#else
-				#idleFreezeMotion	
-			handleIdleState()
+					handleIdleState()
 	
 func performMeleeAttack():
 	enemyMotionMode = enemyMotionStates.attack
@@ -77,8 +71,12 @@ func handleIdleState():
 func getHit(damageAmount: float):
 	if enemyHealth > 0:
 		enemyHealth -= damageAmount
+		print("Enemy damaged, current health : ", enemyHealth)
 	else:
-		isEnemyUnlocked = false
+		print("enemy dead")
+		animated_sprite_2d.play("death")
+		#hit_box.queue_free() 
+
 
 
 	
@@ -137,5 +135,7 @@ func _on_animated_sprite_2d_animation_finished():
 
 func handleAnimationLoopOrFinishActions(anim_name: String):
 	if anim_name == "attack" && playerInHitBox:
-		player.reduceHealth(10)
+		player.reduceHealth(1)
+	if anim_name == "death":
+		isDead = true
 	

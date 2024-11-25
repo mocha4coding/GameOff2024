@@ -8,6 +8,9 @@ const JUMP_VELOCITY = -600.0
 const MAX_HEALTH = 100
 var logtag :String = "PlayerScript"
 @export var healthBar: Node2D = null
+@onready var sword_attack_area_right_spawn_point: Marker2D = $SwordAttackAreaRightSpawnPoint
+@onready var sword_attack_area_left_spawn_point: Marker2D = $SwordAttackAreaLeftSpawnPoint
+@onready var sword_attack_area: Area2D = $SwordAttackArea
 
 var collectibles: Array = []
 enum playerMotionStates {
@@ -43,15 +46,18 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-func handleAttack():
-	if Input.is_action_pressed("attack"):
-		playerMotionMode = playerMotionStates.attack
+func performAttack():
 	for enemy in enemies:
-		if enemy.enemyHealth > 0:
+		if enemy.enemyHealth >= 0:
 			print("Hitting enemy")
 			enemy.getHit(10)
 		else:
 			enemies.erase(enemy)
+			
+func handleAttack():
+	if Input.is_action_pressed("attack"):
+		playerMotionMode = playerMotionStates.attack
+		
 	
 func handleVerticalMotion() -> void:
 	# Handle jump.
@@ -69,7 +75,9 @@ func handleHorizontalMotion() -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	playerDirection = Input.get_axis("left", "right")
 	if playerDirection:
+
 		velocity.x = playerDirection * speed
+		
 		if playerMotionMode != playerMotionStates.jump && playerMotionMode != playerMotionStates.pushPull:
 			playerMotionMode = playerMotionStates.walk
 	else:
@@ -115,8 +123,10 @@ func handlePlayerAnimationSprite() -> void:
 	if playerMotionMode != playerMotionStates.pushPull:
 		if playerDirection < 0 :
 			animated_sprite_2d.flip_h = true
+			sword_attack_area.global_position = sword_attack_area_left_spawn_point.global_position
 		elif playerDirection > 0:
 			animated_sprite_2d.flip_h = false
+			sword_attack_area.global_position = sword_attack_area_right_spawn_point.global_position
 
 func isPlayerInAir() -> bool:
 	if is_on_floor():
@@ -153,6 +163,7 @@ func _on_sword_attack_area_body_entered(body: Node2D) -> void:
 	if body is Enemy:
 		if body.enemyHealth > 0:
 			enemies.append(body)
+			print("Enemy added")
 
 
 func _on_sword_attack_area_body_exited(body: Node2D) -> void:
@@ -161,9 +172,17 @@ func _on_sword_attack_area_body_exited(body: Node2D) -> void:
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if animated_sprite_2d.animation == "deathAccident":
-		GameManager.respawnPlayer()
+	performPostAnimationActions(animated_sprite_2d.animation)
 
+func performPostAnimationActions(anim_name: String):
+	if anim_name == "attack":
+		performAttack()
+	elif anim_name == "deathAccident":
+		GameManager.respawnPlayer()
 func resetPlayer():
 	playerMotionMode = playerMotionStates.idle
 	currentHealth = MAX_HEALTH
+
+
+func _on_animated_sprite_2d_animation_looped() -> void:
+	performPostAnimationActions(animated_sprite_2d.animation)
