@@ -671,6 +671,20 @@ position = Vector2(10027, 556)
 [node name="FireTorch4" parent="LevelDecorations/NaagrajMandir" instance=ExtResource("12_j0i8y")]
 position = Vector2(10418, 556)
 
+[node name="Enemy" parent="LevelDecorations/NaagrajMandir" instance=ExtResource("36_2c2jr")]
+position = Vector2(8846, 822)
+
+[node name="Enemy2" parent="LevelDecorations/NaagrajMandir" instance=ExtResource("36_2c2jr")]
+position = Vector2(9187, 819)
+
+[node name="Enemy3" parent="LevelDecorations/NaagrajMandir" instance=ExtResource("36_2c2jr")]
+position = Vector2(10047, 822)
+isAnimatedSpriteFliiped = true
+
+[node name="Enemy4" parent="LevelDecorations/NaagrajMandir" instance=ExtResource("36_2c2jr")]
+position = Vector2(10428, 825)
+isAnimatedSpriteFliiped = true
+
 [node name="Box" parent="." instance=ExtResource("20_ittnv")]
 position = Vector2(2122, 629)
 
@@ -890,20 +904,6 @@ libraries = {
 
 [node name="Naagmani" parent="." instance=ExtResource("31_nk8px")]
 position = Vector2(3231, 332)
-
-[node name="Enemy" parent="Naagmani" instance=ExtResource("36_2c2jr")]
-position = Vector2(5615, 490)
-
-[node name="Enemy2" parent="Naagmani" instance=ExtResource("36_2c2jr")]
-position = Vector2(5956, 487)
-
-[node name="Enemy3" parent="Naagmani" instance=ExtResource("36_2c2jr")]
-position = Vector2(6816, 490)
-isAnimatedSpriteFliiped = true
-
-[node name="Enemy4" parent="Naagmani" instance=ExtResource("36_2c2jr")]
-position = Vector2(7197, 493)
-isAnimatedSpriteFliiped = true
 
 [node name="SpanwPointObstacle" parent="." instance=ExtResource("31_5afwi")]
 position = Vector2(1176, 870)
