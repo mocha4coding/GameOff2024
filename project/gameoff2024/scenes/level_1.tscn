@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=79 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -42,8 +42,10 @@
 [ext_resource type="PackedScene" uid="uid://ujcg6hciboj1" path="res://scenes/spanw_point_obstacle.tscn" id="31_5afwi"]
 [ext_resource type="PackedScene" uid="uid://dov3ew0vgclut" path="res://scenes/checkpoint.tscn" id="31_ai22p"]
 [ext_resource type="PackedScene" uid="uid://byjg55q0bx0ii" path="res://scenes/naagmani.tscn" id="31_nk8px"]
+[ext_resource type="Script" path="res://scripts/naagraj_mandir.gd" id="35_fvx20"]
 [ext_resource type="PackedScene" uid="uid://epbb1qmmcvqs" path="res://scenes/enemy.tscn" id="36_2c2jr"]
 [ext_resource type="Script" path="res://scripts/press_e_to_interact.gd" id="38_c8e1i"]
+[ext_resource type="Texture2D" uid="uid://0y8lucv2d2h3" path="res://assets/collectible/GemRed.png" id="39_38fit"]
 [ext_resource type="Texture2D" uid="uid://dur3waeg02e2v" path="res://assets/interactables/FirstEInstruction.png" id="39_w852n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4hxtl"]
@@ -215,6 +217,70 @@ size = Vector2(625, 104)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jjqmx"]
 size = Vector2(4856, 110)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4u6b2"]
+radius = 360.378
+
+[sub_resource type="Animation" id="Animation_oko2m"]
+resource_name = "placeGemOnNaagraj"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GemRed:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-203, -21), Vector2(4, -172)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GemRed:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.677188]
+}
+
+[sub_resource type="Animation" id="Animation_1mndv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GemRed:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-203, -21)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GemRed:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.677188]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2efhp"]
+_data = {
+"RESET": SubResource("Animation_1mndv"),
+"placeGemOnNaagraj": SubResource("Animation_oko2m")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ruv6i"]
 size = Vector2(3438, 166)
@@ -643,6 +709,7 @@ position = Vector2(9504, 1015)
 shape = SubResource("RectangleShape2D_jjqmx")
 
 [node name="NaagrajMandir" type="Node2D" parent="LevelDecorations"]
+script = ExtResource("35_fvx20")
 
 [node name="NaagrajMandirPillar" type="Sprite2D" parent="LevelDecorations/NaagrajMandir"]
 z_index = 1
@@ -658,6 +725,22 @@ texture = ExtResource("26_ndlfx")
 z_index = -1
 position = Vector2(9615, 772)
 texture = ExtResource("27_mi5a0")
+
+[node name="PlayerDetector" type="Area2D" parent="LevelDecorations/NaagrajMandir/Naagraj"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelDecorations/NaagrajMandir/Naagraj/PlayerDetector"]
+shape = SubResource("CircleShape2D_4u6b2")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelDecorations/NaagrajMandir/Naagraj"]
+libraries = {
+"": SubResource("AnimationLibrary_2efhp")
+}
+
+[node name="GemRed" type="Sprite2D" parent="LevelDecorations/NaagrajMandir/Naagraj"]
+position = Vector2(-203, -21)
+rotation = 0.677188
+texture = ExtResource("39_38fit")
 
 [node name="FireTorch" parent="LevelDecorations/NaagrajMandir" instance=ExtResource("12_j0i8y")]
 position = Vector2(8844, 557)
@@ -914,6 +997,8 @@ mass = 2.0
 [connection signal="animation_finished" from="PopUps/AnimationPlayer" to="PopUps/PressEToInteract" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="PopUps/AnimationPlayer" to="PopUps/GatePuzzle" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="PopUps/AnimationPlayer" to="PopUps/CompassPuzzleSet/CompassRotateable" method="_on_animation_player_animation_finished"]
+[connection signal="body_entered" from="LevelDecorations/NaagrajMandir/Naagraj/PlayerDetector" to="LevelDecorations/NaagrajMandir" method="_on_player_detector_body_entered"]
+[connection signal="animation_finished" from="LevelDecorations/NaagrajMandir/Naagraj/AnimationPlayer" to="LevelDecorations/NaagrajMandir" method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="Barrels/ChandeDirection" to="Barrels" method="_on_chande_direction_body_entered"]
 [connection signal="body_entered" from="Barrels/ChandeDirection2" to="Barrels" method="_on_chande_direction_2_body_entered"]
 [connection signal="animation_finished" from="Level_1_animation_player_general" to="." method="_on_level_1_animation_player_general_animation_finished"]

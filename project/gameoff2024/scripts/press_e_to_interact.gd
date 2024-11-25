@@ -12,7 +12,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if isBoardShown:
-		if Input.is_action_pressed("interact") && isPlayerInsideDetectionArea:
+		if Input.is_action_pressed("interact") && !isScrollMoveUpAnimationTriggered:
 			print("Push pull : First E pressed")
 			animation_player.play("PushPullScrollsBackward")
 			isScrollMoveUpAnimationTriggered = true

@@ -17,7 +17,7 @@ var chasePlayer: bool = false
 var enableMelee: bool = false
 var playerInHitBox: bool = false
 var enemyMotionMode: enemyMotionStates = enemyMotionStates.idleMotion
-var isEnemyUnlocked: bool = true
+var isEnemyUnlocked: bool = false
 var isDead: bool = false
 enum enemyMotionStates {
 	idleFrozen,
@@ -43,21 +43,24 @@ func _physics_process(delta):
 			if hit_box  != null:
 				hit_box.queue_free()
 		else:
-			if !isDead:
-				if player != null:
-					enemyDirection = (player.global_position- global_position).normalized()
-					if chasePlayer:
-						if enemyDirection.x > 0 :
-							animated_sprite_2d.flip_h = false
-						elif enemyDirection.x < 0:
-							animated_sprite_2d.flip_h = true
-						
-						if enableMelee:
-							performMeleeAttack()								
-						else:	
-							handlePlayerChase(delta)
-				else:
-					handleIdleState()
+			if isEnemyUnlocked:
+				if !isDead:
+					if player != null:
+						enemyDirection = (player.global_position- global_position).normalized()
+						if chasePlayer:
+							if enemyDirection.x > 0 :
+								animated_sprite_2d.flip_h = false
+							elif enemyDirection.x < 0:
+								animated_sprite_2d.flip_h = true
+							
+							if enableMelee:
+								performMeleeAttack()								
+							else:	
+								handlePlayerChase(delta)
+					else:
+						handleIdleState()
+			else:
+				animated_sprite_2d.play("idleFrozen")
 	
 func performMeleeAttack():
 	enemyMotionMode = enemyMotionStates.attack
