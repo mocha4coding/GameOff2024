@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://epbb1qmmcvqs"]
+[gd_scene load_steps=36 format=3 uid="uid://epbb1qmmcvqs"]
 
 [ext_resource type="Texture2D" uid="uid://bq148f3wky2go" path="res://assets/enemy/armorKnight/Attacks.png" id="1_071un"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_kbcnq"]
@@ -209,15 +209,18 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jyoul"]
-radius = 28.0
-height = 188.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_hmyki"]
+radius = 503.707
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_sdynu"]
-radius = 339.888
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nopb8"]
+size = Vector2(257, 213)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_b2inp"]
-radius = 180.544
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o6ou0"]
+radius = 49.0
+height = 198.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1p1qy"]
+size = Vector2(40, 210)
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 8
@@ -225,29 +228,47 @@ collision_mask = 8
 script = ExtResource("1_kbcnq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-1, 0)
+position = Vector2(-23, 0)
 sprite_frames = SubResource("SpriteFrames_h0ko7")
-animation = &"death"
+animation = &"attack"
 autoplay = "idleFrozen"
+frame_progress = 0.154542
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(8, 40)
-shape = SubResource("CapsuleShape2D_jyoul")
+[node name="PlayerChaseAreaDetector" type="Area2D" parent="."]
 
-[node name="PlayerPositionDetector" type="Area2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerChaseAreaDetector"]
+shape = SubResource("CircleShape2D_hmyki")
+debug_color = Color(0.781105, 0.306433, 0.782708, 0.42)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerPositionDetector"]
-shape = SubResource("CircleShape2D_sdynu")
-debug_color = Color(0.355651, 0.61474, 0.19509, 0.42)
+[node name="MeleeZone" type="Area2D" parent="."]
 
-[node name="HitArea" type="Area2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeZone"]
+position = Vector2(-14.5, 35.5)
+shape = SubResource("RectangleShape2D_nopb8")
+debug_color = Color(0.176262, 0.628998, 0.392478, 0.42)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
-shape = SubResource("CircleShape2D_b2inp")
-debug_color = Color(0.884203, 0.211684, 0.643678, 0.42)
+[node name="HitBoxLeftPosition" type="Marker2D" parent="."]
+position = Vector2(-166, 35)
+
+[node name="HitBoxRightPosition" type="Marker2D" parent="."]
+position = Vector2(116, 35)
+
+[node name="Enemy shape" type="CollisionShape2D" parent="."]
+position = Vector2(2, 37)
+shape = SubResource("CapsuleShape2D_o6ou0")
+
+[node name="HitBox" type="Area2D" parent="."]
+position = Vector2(116, 35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("RectangleShape2D_1p1qy")
+debug_color = Color(0.536632, 0.0314109, 0.175246, 0.42)
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="body_entered" from="PlayerPositionDetector" to="." method="_on_player_position_detector_body_entered"]
-[connection signal="body_exited" from="PlayerPositionDetector" to="." method="_on_player_position_detector_body_exited"]
-[connection signal="body_entered" from="HitArea" to="." method="_on_hit_area_body_entered"]
-[connection signal="body_exited" from="HitArea" to="." method="_on_hit_area_body_exited"]
+[connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
+[connection signal="body_entered" from="PlayerChaseAreaDetector" to="." method="_on_player_chase_area_detector_body_entered"]
+[connection signal="body_exited" from="PlayerChaseAreaDetector" to="." method="_on_player_chase_area_detector_body_exited"]
+[connection signal="body_entered" from="MeleeZone" to="." method="_on_melee_zone_body_entered"]
+[connection signal="body_exited" from="MeleeZone" to="." method="_on_melee_zone_body_exited"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="body_exited" from="HitBox" to="." method="_on_hit_box_body_exited"]

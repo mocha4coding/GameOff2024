@@ -2,14 +2,20 @@ extends CharacterBody2D
 
 class_name Enemy
 var timeTakenToMove : int = 100
-var playerChase : bool = false
+
 var player : Player = null
+@onready var hit_box: Area2D = $HitBox
+
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @export var isAnimatedSpriteFliiped : bool = false
-var attackModeOn: bool = false
+@onready var hit_box_left_position: Marker2D = $HitBoxLeftPosition
+@onready var hit_box_right_position: Marker2D = $HitBoxRightPosition
+var enemyDirection: Vector2 
 var enemyHealth:float = 30
 var spawnPosition: Vector2 = global_position
-var gotHit: bool = false
+var chasePlayer: bool = false
+var enableMelee: bool = false
+var playerInHitBox: bool = false
 var enemyMotionMode: enemyMotionStates = enemyMotionStates.idleMotion
 var isEnemyUnlocked: bool = true
 enum enemyMotionStates {
@@ -26,103 +32,110 @@ func _ready():
 	
 	
 func _physics_process(delta):
-	if isEnemyUnlocked:
-		if attackModeOn:
-			attackOnPlayer()
+		
+		if animated_sprite_2d.flip_h == true:
+			hit_box.position = hit_box_left_position.position
 		else:
-			if playerChase:
-				handlePlayerChase()
-			else:
-				handleIdleState()
-				#print("Bee positon after player detected " , position )
+			hit_box.position = hit_box_right_position.position
+			
 		if player != null:
-			if player.position.x - position.x > 0 :
-				animated_sprite_2d.flip_h = false
-			elif player.position.x - position.x < 0:
-				animated_sprite_2d.flip_h = true
-	else:
-		if enemyHealth >0:
-			animated_sprite_2d.play("idleFrozen")
+			enemyDirection = (player.global_position- global_position).normalized()
+			if chasePlayer:
+				if enemyDirection.x > 0 :
+					animated_sprite_2d.flip_h = false
+				elif enemyDirection.x < 0:
+					animated_sprite_2d.flip_h = true
+				
+				if enableMelee:
+					performMeleeAttack()
+					# if playerInHitBox then when animation finished reduce player health
+						
+				else:
+					
+					
+					handlePlayerChase(delta)
 		else:
-			animated_sprite_2d.play("death")
+			#if armor is unlocked then
+				#if armor is alive  
+					#if position is not same as spawn position walk to spawn position
+				#else 
+					#if dead animation not played
+						#player dead animation
+			#else
+				#idleFreezeMotion	
+			handleIdleState()
 	
+func performMeleeAttack():
+	enemyMotionMode = enemyMotionStates.attack
+	animated_sprite_2d.play("attack")
+	
+
 func handleIdleState():
 	animated_sprite_2d.play("idleMotion")
-	enemyMotionMode = enemyMotionStates.idleMotion
+	#enemyMotionMode = enemyMotionStates.idleMotion
 	
 func getHit(damageAmount: float):
 	if enemyHealth > 0:
 		enemyHealth -= damageAmount
-		gotHit = true
 	else:
 		isEnemyUnlocked = false
 
-func attackOnPlayer():
-	animated_sprite_2d.play("attack")
-	enemyMotionMode = enemyMotionStates.attack
-	if player.currentHealth > 0:
-		player.reduceHealth(0.05)
-	else:
-		attackModeOn = false
+
 	
 	
 
-func handlePlayerChase():
-	position.x += (player.position.x - position.x)/timeTakenToMove
+func handlePlayerChase(delta):
+	#position.x += (player.position.x - position.x)/timeTakenToMove
+	 # Calculate the direction to the player
+	
+	global_position.x += enemyDirection.x * timeTakenToMove * delta
 	animated_sprite_2d.play("walk")
-		
-func handlePlayerEnteredPlayerPositionDetector(body):
+
+
+
+
+
+func _on_player_chase_area_detector_body_entered(body: Node2D) -> void:
 	if body is Player:
-		#print("Player detected")
+		chasePlayer = true
 		player = body
-		playerChase = true
 
 
-func handlePlayerExitPlayerPositionDetector(body):
+func _on_player_chase_area_detector_body_exited(body: Node2D) -> void:
 	if body is Player:
+		chasePlayer = false
 		player = null
-		playerChase = false
-
-
-
-func handlePlayerEnteringHitArea(body):
-	if body is Player:
-		player = body
-		attackModeOn = true
-		print("Attack mode is set to on")
 		
+	
 
 
-func handlePlayerExitingHitArea(body):
+func _on_melee_zone_body_entered(body: Node2D) -> void:
 	if body is Player:
-		player = body
-		attackModeOn = false
-		print("Attack mode is set to off")
+		enableMelee = true
 
+func _on_melee_zone_body_exited(body: Node2D) -> void:
+	if body is Player:
+		enableMelee = false
+
+
+func _on_hit_box_body_entered(body: Node2D) -> void:
+	if body is Player:
+		playerInHitBox = true
+
+
+func _on_hit_box_body_exited(body: Node2D) -> void:
+	if body is Player:
+		playerInHitBox = false
+
+
+func _on_animated_sprite_2d_animation_looped() -> void:
+	handleAnimationLoopOrFinishActions(animated_sprite_2d.animation)
+		
 func _on_animated_sprite_2d_animation_finished():
-	if enemyMotionMode == enemyMotionStates.attack:
-		print("attacking finished")
-	if gotHit:
-		gotHit = false
-	if enemyHealth <= 0:
-		queue_free()
+	handleAnimationLoopOrFinishActions(animated_sprite_2d.animation)
 
 
-func _on_player_position_detector_body_entered(body: Node2D) -> void:
-	if body is Player:
-		handlePlayerEnteredPlayerPositionDetector(body)
-
-
-func _on_player_position_detector_body_exited(body: Node2D) -> void:
-	if body is Player:
-		handlePlayerExitPlayerPositionDetector(body)
-
-
-func _on_hit_area_body_entered(body: Node2D) -> void:
-	if body is Player:
-		handlePlayerEnteringHitArea(body)
-
-
-func _on_hit_area_body_exited(body: Node2D) -> void:
-	if body is Player:
-		handlePlayerExitingHitArea(body)
+func handleAnimationLoopOrFinishActions(anim_name: String):
+	if anim_name == "attack" && playerInHitBox:
+		player.reduceHealth(10)
+	
