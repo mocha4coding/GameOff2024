@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=82 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -47,6 +47,8 @@
 [ext_resource type="Script" path="res://scripts/press_e_to_interact.gd" id="38_c8e1i"]
 [ext_resource type="Texture2D" uid="uid://0y8lucv2d2h3" path="res://assets/collectible/GemRed.png" id="39_38fit"]
 [ext_resource type="Texture2D" uid="uid://dur3waeg02e2v" path="res://assets/interactables/FirstEInstruction.png" id="39_w852n"]
+[ext_resource type="Texture2D" uid="uid://cd1vpasxkr8iv" path="res://assets/decorations/level_ending_palace.png" id="41_gcrib"]
+[ext_resource type="Texture2D" uid="uid://ctcr4cvmk0min" path="res://assets/decorations/level_end_door.png" id="42_3axhe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4hxtl"]
 radius = 116.709
@@ -282,6 +284,9 @@ _data = {
 "placeGemOnNaagraj": SubResource("Animation_oko2m")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i2spj"]
+size = Vector2(158, 1912)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ruv6i"]
 size = Vector2(3438, 166)
 
@@ -392,7 +397,7 @@ _data = {
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_hqld2")
-metadata/_edit_vertical_guides_ = [0.0]
+metadata/_edit_vertical_guides_ = [0.0, 14156.0, 14156.0]
 
 [node name="PopUps" type="Node2D" parent="."]
 
@@ -491,10 +496,13 @@ centered = false
 anchor_mode = 0
 zoom = Vector2(0.55, 0.55)
 limit_left = 5
+limit_right = 14156
 script = ExtResource("5_e18g0")
 TargetNode = NodePath("../Player")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+scale = Vector2(0.5, 0.5)
+transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
 
 [node name="PlayerHealthBar" parent="CanvasLayer" instance=ExtResource("6_86wcs")]
 position = Vector2(116, 45)
@@ -711,6 +719,20 @@ texture = ExtResource("25_35p76")
 position = Vector2(9504, 1015)
 shape = SubResource("RectangleShape2D_jjqmx")
 
+[node name="EndingFloor" type="Node2D" parent="LevelDecorations"]
+position = Vector2(4848, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/EndingFloor"]
+z_index = 2
+position = Vector2(9506, 1020)
+texture = ExtResource("25_35p76")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="LevelDecorations/EndingFloor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelDecorations/EndingFloor/StaticBody2D"]
+position = Vector2(9504, 1015)
+shape = SubResource("RectangleShape2D_jjqmx")
+
 [node name="NaagrajMandir" type="Node2D" parent="LevelDecorations"]
 script = ExtResource("35_fvx20")
 
@@ -770,6 +792,27 @@ isAnimatedSpriteFliiped = true
 [node name="Enemy4" parent="LevelDecorations/NaagrajMandir" instance=ExtResource("36_2c2jr")]
 position = Vector2(10428, 825)
 isAnimatedSpriteFliiped = true
+
+[node name="EndingPalace" type="Node2D" parent="LevelDecorations"]
+
+[node name="Palace" type="Sprite2D" parent="LevelDecorations/EndingPalace"]
+z_index = -1
+position = Vector2(13766, 514)
+texture = ExtResource("41_gcrib")
+
+[node name="FireTorch" parent="LevelDecorations/EndingPalace/Palace" instance=ExtResource("12_j0i8y")]
+position = Vector2(-328, -236)
+
+[node name="Door" type="Sprite2D" parent="LevelDecorations/EndingPalace"]
+position = Vector2(13820, 880)
+texture = ExtResource("42_3axhe")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="LevelDecorations/EndingPalace"]
+position = Vector2(14304, 341)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelDecorations/EndingPalace/StaticBody2D"]
+position = Vector2(-73, 196)
+shape = SubResource("RectangleShape2D_i2spj")
 
 [node name="Box" parent="." instance=ExtResource("20_ittnv")]
 position = Vector2(2122, 629)
