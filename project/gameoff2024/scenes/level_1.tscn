@@ -489,7 +489,7 @@ centered = false
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("TargetNode")]
 anchor_mode = 0
-zoom = Vector2(1.025, 1.025)
+zoom = Vector2(0.55, 0.55)
 limit_left = 5
 script = ExtResource("5_e18g0")
 TargetNode = NodePath("../Player")
