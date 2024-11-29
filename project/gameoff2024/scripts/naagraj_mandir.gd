@@ -24,7 +24,9 @@ func _process(delta: float) -> void:
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
 	if body is Player:
-		animation_player.play("placeGemOnNaagraj")
+		#hardcoding will change later
+		if body.collectibles.size() != 0 :
+			animation_player.play("placeGemOnNaagraj")
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:

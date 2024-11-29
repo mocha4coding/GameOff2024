@@ -5,9 +5,13 @@ extends Node2D
 @onready var barrel_animation_player: AnimationPlayer = $Barrels/AnimationPlayer
 @onready var level_1_animation_player_general: AnimationPlayer = $Level_1_animation_player_general
 @onready var compass_rotateable: Node2D = $PopUps/CompassPuzzleSet/CompassRotateable
+@onready var naagraj_puzzle: Node2D = $LevelDecorations/FireLavaShelter/NaagrajPuzzle
+@onready var naagmani_stand: Node2D = $LevelDecorations/FireLavaShelter/NaagmaniStand
+@onready var naagmani: Node2D = $LevelDecorations/FireLavaShelter/NaagmaniStand/Sprite2D/Naagmani
 
 var playerInGroundFloor: bool = true
 var barrelVisible: bool = false
+var isNaagmaniShown: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -24,8 +28,16 @@ func _process(delta: float) -> void:
 	if compass_rotateable.bringBarrels == true && barrelVisible == false:
 		barrelVisible = true
 		level_1_animation_player_general.play("bring_barrel")
+		
+	if naagraj_puzzle.isPuzzleSolved:
+		if !isNaagmaniShown:
+			level_1_animation_player_general.play("naagmaniStandRise")
 
 
 func _on_level_1_animation_player_general_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "bring_barrel":
 		barrel_animation_player.play("roll")
+		
+	if anim_name == "naagmaniStandRise":
+		isNaagmaniShown = true
+		naagmani.isNaagmaniStandShown = true
