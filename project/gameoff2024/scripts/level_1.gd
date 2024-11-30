@@ -8,10 +8,13 @@ extends Node2D
 @onready var naagraj_puzzle: Node2D = $LevelDecorations/FireLavaShelter/NaagrajPuzzle
 @onready var naagmani_stand: Node2D = $LevelDecorations/FireLavaShelter/NaagmaniStand
 @onready var naagmani: Node2D = $LevelDecorations/FireLavaShelter/NaagmaniStand/Sprite2D/Naagmani
+@onready var naagmandir_front_wall: Sprite2D = $LevelDecorations/NaagrajMandir/FrontWall
+@onready var naagmandir_wheel: Node2D = $LevelDecorations/NaagrajMandir/NaagmandirWheel
 
 var playerInGroundFloor: bool = true
 var barrelVisible: bool = false
 var isNaagmaniShown: bool = false
+var isNaagmandirCoverDown: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -33,7 +36,9 @@ func _process(delta: float) -> void:
 		if !isNaagmaniShown:
 			level_1_animation_player_general.play("naagmaniStandRise")
 
-
+	if naagmandir_wheel.isWheelRotated == true && isNaagmandirCoverDown == false:
+		level_1_animation_player_general.play("templeCoverDown")
+		
 func _on_level_1_animation_player_general_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "bring_barrel":
 		barrel_animation_player.play("roll")
@@ -41,3 +46,7 @@ func _on_level_1_animation_player_general_animation_finished(anim_name: StringNa
 	if anim_name == "naagmaniStandRise":
 		isNaagmaniShown = true
 		naagmani.isNaagmaniStandShown = true
+	
+	if anim_name == "templeCoverDown":
+		isNaagmandirCoverDown = true
+		naagmandir_front_wall.queue_free()

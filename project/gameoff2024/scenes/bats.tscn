@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://8a418c1dt3go"]
+
+[ext_resource type="Texture2D" uid="uid://bc7lcwfvfn05g" path="res://assets/decorations/bat.png" id="1_04b46"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_khrty"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 98, 0)
+
+[node name="Bats" type="Node2D"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 30
+amount_ratio = 0.2488
+process_material = SubResource("ParticleProcessMaterial_khrty")
+texture = ExtResource("1_04b46")
+lifetime = 211.63
+one_shot = true

@@ -6,7 +6,9 @@ var enemies: Array[Enemy]
 @onready var enemy_2: Enemy = $Enemy2
 @onready var enemy_3: Enemy = $Enemy3
 @onready var enemy_4: Enemy = $Enemy4
-@onready var player_detector: Area2D = $Naagraj/PlayerDetector
+@onready var naagraj_player_detector: Area2D = $Naagraj/PlayerDetector
+@onready var front_wall: Sprite2D = $FrontWall
+@onready var naagmandir_wheel: Node2D = $NaagmandirWheel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,5 +36,5 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		for enemy in enemies:
 			enemy.isEnemyUnlocked = true
 	
-		player_detector.queue_free()
+		naagraj_player_detector.queue_free()
 		

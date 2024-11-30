@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=89 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -51,6 +51,8 @@
 [ext_resource type="Texture2D" uid="uid://dur3waeg02e2v" path="res://assets/interactables/FirstEInstruction.png" id="39_w852n"]
 [ext_resource type="Texture2D" uid="uid://cd1vpasxkr8iv" path="res://assets/decorations/level_ending_palace.png" id="41_gcrib"]
 [ext_resource type="Texture2D" uid="uid://ctcr4cvmk0min" path="res://assets/decorations/level_end_door.png" id="42_3axhe"]
+[ext_resource type="PackedScene" uid="uid://cdi4i23l4oryo" path="res://scenes/naagmandir_wheel.tscn" id="44_yeent"]
+[ext_resource type="Texture2D" uid="uid://dycdq5d80cgkl" path="res://assets/interactables/NaagmandirCoverWall.png" id="45_qytny"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4hxtl"]
 radius = 116.709
@@ -286,6 +288,9 @@ _data = {
 "placeGemOnNaagraj": SubResource("Animation_oko2m")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_esqvm"]
+size = Vector2(2129, 909)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i2spj"]
 size = Vector2(158, 1912)
 
@@ -386,6 +391,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(5138, 658)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LevelDecorations/NaagrajMandir/FrontWall:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9615, 698)]
+}
 
 [sub_resource type="Animation" id="Animation_qxjb3"]
 resource_name = "bring_barrel"
@@ -418,11 +435,28 @@ tracks/0/keys = {
 "values": [Vector2(5138, 658), Vector2(5138, 549)]
 }
 
+[sub_resource type="Animation" id="Animation_dsw0j"]
+resource_name = "templeCoverDown"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelDecorations/NaagrajMandir/FrontWall:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(9615, 698), Vector2(9615, 1526)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_whbnp"]
 _data = {
 "RESET": SubResource("Animation_csgth"),
 "bring_barrel": SubResource("Animation_qxjb3"),
-"naagmaniStandRise": SubResource("Animation_ocvug")
+"naagmaniStandRise": SubResource("Animation_ocvug"),
+"templeCoverDown": SubResource("Animation_dsw0j")
 }
 
 [node name="Level1" type="Node2D"]
@@ -751,9 +785,9 @@ texture = ExtResource("35_sbtnh")
 z_index = -3
 position = Vector2(-0.999512, -61.0002)
 rotation = 0.677188
-scale = Vector2(1, 1)
 
 [node name="TempleFloor" type="Node2D" parent="LevelDecorations"]
+position = Vector2(3, 4)
 
 [node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/TempleFloor"]
 z_index = 2
@@ -839,6 +873,21 @@ isAnimatedSpriteFliiped = true
 [node name="Enemy4" parent="LevelDecorations/NaagrajMandir" instance=ExtResource("36_2c2jr")]
 position = Vector2(10428, 825)
 isAnimatedSpriteFliiped = true
+
+[node name="NaagmandirWheel" parent="LevelDecorations/NaagrajMandir" instance=ExtResource("44_yeent")]
+z_index = -5
+position = Vector2(7442, 827)
+
+[node name="FrontWall" type="Sprite2D" parent="LevelDecorations/NaagrajMandir"]
+z_index = 1
+position = Vector2(9615, 698)
+texture = ExtResource("45_qytny")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="LevelDecorations/NaagrajMandir/FrontWall"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelDecorations/NaagrajMandir/FrontWall/StaticBody2D"]
+position = Vector2(-0.5, 1.5)
+shape = SubResource("RectangleShape2D_esqvm")
 
 [node name="EndingPalace" type="Node2D" parent="LevelDecorations"]
 
@@ -1011,7 +1060,7 @@ position = Vector2(6888, 966)
 position = Vector2(6960, 966)
 
 [node name="Fire48" parent="FireFloor" instance=ExtResource("22_h4iph")]
-position = Vector2(7032, 966)
+position = Vector2(7026, 973)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="FireFloor"]
 
@@ -1030,7 +1079,7 @@ position = Vector2(3776, 199)
 position = Vector2(5328, 592)
 
 [node name="Checkpoint4" parent="FireFloor" instance=ExtResource("31_ai22p")]
-position = Vector2(7189, 824)
+position = Vector2(7225, 828)
 
 [node name="PalaceFirstFloorSpawnPoint" type="Marker2D" parent="."]
 position = Vector2(3540, 203)
