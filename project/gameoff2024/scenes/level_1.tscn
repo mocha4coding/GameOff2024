@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=90 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -22,8 +22,11 @@
 [ext_resource type="Texture2D" uid="uid://btdm7l400myc4" path="res://assets/decorations/stairs.png" id="15_73yso"]
 [ext_resource type="Texture2D" uid="uid://csqebe5ssiooe" path="res://assets/decorations/spawnPointPalaceFirstFloor.png" id="15_i38l8"]
 [ext_resource type="Texture2D" uid="uid://dg484bt8pe3d" path="res://assets/decorations/SpawnPointPalaceFirstFloorWall.png" id="16_jug4b"]
+[ext_resource type="Script" path="res://scripts/menu.gd" id="16_kru1h"]
 [ext_resource type="PackedScene" uid="uid://cjkf7b5tfwb8p" path="res://scenes/barrel.tscn" id="16_wk7eq"]
+[ext_resource type="Texture2D" uid="uid://duyrdhc4fduev" path="res://assets/ui/menuButton.png" id="16_x8y0d"]
 [ext_resource type="Texture2D" uid="uid://365ykemae4ri" path="res://assets/decorations/SpawnPointPalaceFirstFloor_roof.png" id="17_aov13"]
+[ext_resource type="Texture2D" uid="uid://bufefa1y6jo6v" path="res://assets/ui/RestartIntructionsButtonIcon.png" id="18_hvqb8"]
 [ext_resource type="Texture2D" uid="uid://bauy14leqweiv" path="res://assets/decorations/PalaceChain.png" id="18_l2a68"]
 [ext_resource type="PackedScene" uid="uid://b7c6uw6fb6kg" path="res://scenes/chandelier.tscn" id="18_nhipb"]
 [ext_resource type="Texture2D" uid="uid://chxwrgjf66m4b" path="res://assets/decorations/DoorWithoutGate.png" id="20_2d7pp"]
@@ -567,6 +570,31 @@ transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
 [node name="PlayerHealthBar" parent="CanvasLayer" instance=ExtResource("6_86wcs")]
 position = Vector2(196, 44)
 scale = Vector2(0.75, 0.75)
+
+[node name="Menu" type="Node2D" parent="CanvasLayer"]
+script = ExtResource("16_kru1h")
+
+[node name="MenuIcon" type="Sprite2D" parent="CanvasLayer/Menu"]
+position = Vector2(1838, 80)
+texture = ExtResource("16_x8y0d")
+
+[node name="MenuButton" type="Button" parent="CanvasLayer/Menu/MenuIcon"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -48.0
+offset_top = -50.0
+offset_right = 48.0
+offset_bottom = 46.0
+
+[node name="MenuDetails" type="Sprite2D" parent="CanvasLayer/Menu"]
+position = Vector2(1674, 204)
+texture = ExtResource("18_hvqb8")
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/Menu/MenuDetails"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -176.0
+offset_top = -76.0
+offset_right = 182.0
+offset_bottom = -4.0
 
 [node name="LevelDecorations" type="Node2D" parent="."]
 
@@ -1124,6 +1152,8 @@ mass = 2.0
 [connection signal="animation_finished" from="PopUps/AnimationPlayer" to="PopUps/PressEToInteract" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="PopUps/AnimationPlayer" to="PopUps/GatePuzzle" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="PopUps/AnimationPlayer" to="PopUps/CompassPuzzleSet/CompassRotateable" method="_on_animation_player_animation_finished"]
+[connection signal="pressed" from="CanvasLayer/Menu/MenuIcon/MenuButton" to="CanvasLayer/Menu" method="_on_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menu/MenuDetails/RestartButton" to="CanvasLayer/Menu" method="_on_restart_button_pressed"]
 [connection signal="body_entered" from="LevelDecorations/NaagrajMandir/Naagraj/PlayerDetector" to="LevelDecorations/NaagrajMandir" method="_on_player_detector_body_entered"]
 [connection signal="animation_finished" from="LevelDecorations/NaagrajMandir/Naagraj/AnimationPlayer" to="LevelDecorations/NaagrajMandir" method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="Barrels/ChandeDirection" to="Barrels" method="_on_chande_direction_body_entered"]
