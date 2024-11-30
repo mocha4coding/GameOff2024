@@ -22,7 +22,7 @@ enum playerMotionStates {
 	deathFight,
 	deathAccident
 }
-var currentHealth: float = MAX_HEALTH - 20
+var currentHealth: float = MAX_HEALTH 
 var playerMotionMode: int = playerMotionStates.idle 
 var playerDirection: int = 0
 var playerHorizontalDirectionVector: Vector2 = Vector2.ZERO

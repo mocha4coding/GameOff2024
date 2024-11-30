@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=87 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://2maeoqd05oi6" path="res://scenes/player_health_bar.tscn" id="6_86wcs"]
 [ext_resource type="Texture2D" uid="uid://dfpqw6w74tn4i" path="res://assets/interactables/GatePuzzle.png" id="6_revey"]
 [ext_resource type="Script" path="res://scripts/line_edit_gate_puzzle.gd" id="7_l3h3s"]
-[ext_resource type="PackedScene" uid="uid://j24tbbn6nn3a" path="res://scenes/player_damage_zone.tscn" id="7_vypnl"]
 [ext_resource type="PackedScene" uid="uid://d0q1tc80dest0" path="res://scenes/compass_puzzle.tscn" id="9_h2wfp"]
 [ext_resource type="Texture2D" uid="uid://1e60gq0ynhjy" path="res://assets/decorations/starting point.png" id="9_mgm6h"]
 [ext_resource type="Texture2D" uid="uid://v4cjw82rk2od" path="res://assets/decorations/spawnpointwall.png" id="10_j0kb8"]
@@ -208,9 +207,6 @@ _data = {
 "gatePuzzleScrollsDown": SubResource("Animation_2e3qk"),
 "gatePuzzleScrollsUp": SubResource("Animation_npw1d")
 }
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_mraxs"]
-radius = 325.73
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kvk71"]
 size = Vector2(18926.5, 222)
@@ -569,16 +565,8 @@ scale = Vector2(0.5, 0.5)
 transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
 
 [node name="PlayerHealthBar" parent="CanvasLayer" instance=ExtResource("6_86wcs")]
-position = Vector2(116, 45)
+position = Vector2(196, 44)
 scale = Vector2(0.75, 0.75)
-
-[node name="PlayerDamageZone" parent="." instance=ExtResource("7_vypnl")]
-position = Vector2(3662, 910)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDamageZone"]
-position = Vector2(322, -14)
-shape = SubResource("CircleShape2D_mraxs")
-debug_color = Color(0.925022, 0.203444, 0.465446, 0.42)
 
 [node name="LevelDecorations" type="Node2D" parent="."]
 
@@ -911,10 +899,10 @@ position = Vector2(-73, 196)
 shape = SubResource("RectangleShape2D_i2spj")
 
 [node name="Box" parent="." instance=ExtResource("20_ittnv")]
-position = Vector2(2122, 629)
+position = Vector2(2074, 629)
 
 [node name="Box2" parent="." instance=ExtResource("20_ittnv")]
-position = Vector2(2164, 511)
+position = Vector2(2103, 511)
 
 [node name="FireFloor" type="Node2D" parent="."]
 
