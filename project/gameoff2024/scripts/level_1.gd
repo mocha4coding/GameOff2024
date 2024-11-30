@@ -10,7 +10,7 @@ extends Node2D
 @onready var naagmani: Node2D = $LevelDecorations/FireLavaShelter/NaagmaniStand/Sprite2D/Naagmani
 @onready var naagmandir_front_wall: Sprite2D = $LevelDecorations/NaagrajMandir/FrontWall
 @onready var naagmandir_wheel: Node2D = $LevelDecorations/NaagrajMandir/NaagmandirWheel
-
+@onready var start_screen: Node2D = $CanvasLayer/StartScreen
 var playerInGroundFloor: bool = true
 var barrelVisible: bool = false
 var isNaagmaniShown: bool = false
@@ -50,3 +50,8 @@ func _on_level_1_animation_player_general_animation_finished(anim_name: StringNa
 	if anim_name == "templeCoverDown":
 		isNaagmandirCoverDown = true
 		naagmandir_front_wall.queue_free()
+
+
+func _on_play_button_pressed() -> void:
+	start_screen.queue_free()
+	player.isPlayerLocked = false

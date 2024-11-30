@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=92 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -29,7 +29,9 @@
 [ext_resource type="Texture2D" uid="uid://bufefa1y6jo6v" path="res://assets/ui/RestartIntructionsButtonIcon.png" id="18_hvqb8"]
 [ext_resource type="Texture2D" uid="uid://bauy14leqweiv" path="res://assets/decorations/PalaceChain.png" id="18_l2a68"]
 [ext_resource type="PackedScene" uid="uid://b7c6uw6fb6kg" path="res://scenes/chandelier.tscn" id="18_nhipb"]
+[ext_resource type="Texture2D" uid="uid://b8bloy0v0u0t2" path="res://assets/ui/Coiled Quest Title.png" id="19_7khn4"]
 [ext_resource type="Texture2D" uid="uid://chxwrgjf66m4b" path="res://assets/decorations/DoorWithoutGate.png" id="20_2d7pp"]
+[ext_resource type="Texture2D" uid="uid://b0fob8yup7sgl" path="res://assets/ui/Play.png" id="20_i1vjy"]
 [ext_resource type="PackedScene" uid="uid://bvj4yyx776uyu" path="res://scenes/box.tscn" id="20_ittnv"]
 [ext_resource type="PackedScene" uid="uid://dsp0hlu5hy6a1" path="res://scenes/fire.tscn" id="22_h4iph"]
 [ext_resource type="Texture2D" uid="uid://oilhml5ldyd1" path="res://assets/decorations/medusa.png" id="22_ouerp"]
@@ -596,6 +598,23 @@ offset_top = -76.0
 offset_right = 182.0
 offset_bottom = -4.0
 
+[node name="StartScreen" type="Node2D" parent="CanvasLayer"]
+
+[node name="Title" type="Sprite2D" parent="CanvasLayer/StartScreen"]
+position = Vector2(936, 438)
+texture = ExtResource("19_7khn4")
+
+[node name="PlayButton" type="Sprite2D" parent="CanvasLayer/StartScreen"]
+position = Vector2(942, 646)
+texture = ExtResource("20_i1vjy")
+
+[node name="PlayButton" type="Button" parent="CanvasLayer/StartScreen/PlayButton"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -140.0
+offset_top = -46.0
+offset_right = 140.0
+offset_bottom = 48.0
+
 [node name="LevelDecorations" type="Node2D" parent="."]
 
 [node name="floor" type="StaticBody2D" parent="LevelDecorations"]
@@ -1154,6 +1173,7 @@ mass = 2.0
 [connection signal="animation_finished" from="PopUps/AnimationPlayer" to="PopUps/CompassPuzzleSet/CompassRotateable" method="_on_animation_player_animation_finished"]
 [connection signal="pressed" from="CanvasLayer/Menu/MenuIcon/MenuButton" to="CanvasLayer/Menu" method="_on_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Menu/MenuDetails/RestartButton" to="CanvasLayer/Menu" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/StartScreen/PlayButton/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="body_entered" from="LevelDecorations/NaagrajMandir/Naagraj/PlayerDetector" to="LevelDecorations/NaagrajMandir" method="_on_player_detector_body_entered"]
 [connection signal="animation_finished" from="LevelDecorations/NaagrajMandir/Naagraj/AnimationPlayer" to="LevelDecorations/NaagrajMandir" method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="Barrels/ChandeDirection" to="Barrels" method="_on_chande_direction_body_entered"]

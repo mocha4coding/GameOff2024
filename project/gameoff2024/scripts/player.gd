@@ -11,7 +11,7 @@ var logtag :String = "PlayerScript"
 @onready var sword_attack_area_right_spawn_point: Marker2D = $SwordAttackAreaRightSpawnPoint
 @onready var sword_attack_area_left_spawn_point: Marker2D = $SwordAttackAreaLeftSpawnPoint
 @onready var sword_attack_area: Area2D = $SwordAttackArea
-
+var isPlayerLocked: bool = true
 var collectibles: Array = []
 enum playerMotionStates {
 	idle,
@@ -37,7 +37,7 @@ func _physics_process(delta: float) -> void:
 	
 	var input_direction =  Vector2(Input.get_axis("left", "right"), 0).normalized()
 	playerHorizontalDirectionVector = input_direction
-	if currentHealth > 0 :
+	if currentHealth > 0 && !isPlayerLocked:
 		handleVerticalMotion()
 		handleHorizontalMotion()
 		handleAttack()
