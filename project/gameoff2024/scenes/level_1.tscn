@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=97 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -58,6 +58,8 @@
 [ext_resource type="PackedScene" uid="uid://cdi4i23l4oryo" path="res://scenes/naagmandir_wheel.tscn" id="44_yeent"]
 [ext_resource type="Texture2D" uid="uid://dycdq5d80cgkl" path="res://assets/interactables/NaagmandirCoverWall.png" id="45_qytny"]
 [ext_resource type="Texture2D" uid="uid://boi6mynef8dx1" path="res://assets/interactables/spaceBar.png" id="50_1s61p"]
+[ext_resource type="Script" path="res://scripts/ending_palace.gd" id="51_jw6wi"]
+[ext_resource type="Texture2D" uid="uid://c5hjh6bh43udh" path="res://assets/decorations/level_end_door_open.png" id="54_3n5a8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4hxtl"]
 radius = 116.709
@@ -324,6 +326,9 @@ size = Vector2(2129, 909)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i2spj"]
 size = Vector2(158, 1912)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7tsar"]
+radius = 126.21
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ruv6i"]
 size = Vector2(3438, 166)
@@ -944,7 +949,6 @@ z_index = -5
 position = Vector2(7442, 827)
 
 [node name="FrontWall" type="Sprite2D" parent="LevelDecorations/NaagrajMandir"]
-visible = false
 z_index = 1
 position = Vector2(9615, 698)
 texture = ExtResource("45_qytny")
@@ -961,9 +965,10 @@ position = Vector2(9621, -247)
 texture = ExtResource("50_1s61p")
 
 [node name="EndingPalace" type="Node2D" parent="LevelDecorations"]
+script = ExtResource("51_jw6wi")
 
 [node name="Palace" type="Sprite2D" parent="LevelDecorations/EndingPalace"]
-z_index = -1
+z_index = -3
 position = Vector2(13766, 514)
 texture = ExtResource("41_gcrib")
 
@@ -971,7 +976,8 @@ texture = ExtResource("41_gcrib")
 position = Vector2(-328, -236)
 
 [node name="Door" type="Sprite2D" parent="LevelDecorations/EndingPalace"]
-position = Vector2(13820, 880)
+z_index = -1
+position = Vector2(13820, 882)
 texture = ExtResource("42_3axhe")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="LevelDecorations/EndingPalace"]
@@ -980,6 +986,17 @@ position = Vector2(14304, 341)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelDecorations/EndingPalace/StaticBody2D"]
 position = Vector2(-73, 196)
 shape = SubResource("RectangleShape2D_i2spj")
+
+[node name="DoorOpen" type="Sprite2D" parent="LevelDecorations/EndingPalace"]
+z_index = -2
+position = Vector2(13820, 882)
+texture = ExtResource("54_3n5a8")
+
+[node name="EndPointPlayerDetector" type="Area2D" parent="LevelDecorations/EndingPalace"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelDecorations/EndingPalace/EndPointPlayerDetector"]
+position = Vector2(13820, 871)
+shape = SubResource("CircleShape2D_7tsar")
 
 [node name="Box" parent="." instance=ExtResource("20_ittnv")]
 position = Vector2(2074, 629)
@@ -1212,6 +1229,7 @@ mass = 2.0
 [connection signal="pressed" from="CanvasLayer/StartScreen/PlayButton/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="body_entered" from="LevelDecorations/NaagrajMandir/Naagraj/PlayerDetector" to="LevelDecorations/NaagrajMandir" method="_on_player_detector_body_entered"]
 [connection signal="animation_finished" from="LevelDecorations/NaagrajMandir/Naagraj/AnimationPlayer" to="LevelDecorations/NaagrajMandir" method="_on_animation_player_animation_finished"]
+[connection signal="body_entered" from="LevelDecorations/EndingPalace/EndPointPlayerDetector" to="." method="_on_end_point_player_detector_body_entered"]
 [connection signal="body_entered" from="Barrels/ChandeDirection" to="Barrels" method="_on_chande_direction_body_entered"]
 [connection signal="body_entered" from="Barrels/ChandeDirection2" to="Barrels" method="_on_chande_direction_2_body_entered"]
 [connection signal="animation_finished" from="Level_1_animation_player_general" to="." method="_on_level_1_animation_player_general_animation_finished"]

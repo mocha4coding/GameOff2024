@@ -77,7 +77,8 @@ func getHit(damageAmount: float):
 		print("Enemy damaged, current health : ", enemyHealth)
 	else:
 		print("enemy dead")
-		animated_sprite_2d.play("death")
+		if !isDead:
+			animated_sprite_2d.play("death")
 		#hit_box.queue_free() 
 
 

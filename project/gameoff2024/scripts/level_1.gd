@@ -12,6 +12,8 @@ extends Node2D
 @onready var naagmandir_wheel: Node2D = $LevelDecorations/NaagrajMandir/NaagmandirWheel
 @onready var start_screen: Node2D = $CanvasLayer/StartScreen
 @onready var camera_2d: Camera2D = $Camera2D
+@onready var naagraj_mandir: Node2D = $LevelDecorations/NaagrajMandir
+@onready var endpointDoorClosed: Sprite2D = $LevelDecorations/EndingPalace/Door
 
 var playerInGroundFloor: bool = true
 var barrelVisible: bool = false
@@ -58,3 +60,19 @@ func _on_level_1_animation_player_general_animation_finished(anim_name: StringNa
 func _on_play_button_pressed() -> void:
 	start_screen.queue_free()
 	player.isPlayerLocked = false
+
+func fadeOutEndpointDoor():
+	var tween = get_tree().create_tween()
+	tween.tween_property(endpointDoorClosed, "modulate:a", 0.0, 3.0)
+
+func _on_end_point_player_detector_body_entered(body: Node2D) -> void:
+	if body is Player:
+		var enemiesDead : bool = true
+		for enemy in naagraj_mandir.enemies:
+			enemiesDead = enemy.isDead && enemiesDead				
+		if enemiesDead:
+			fadeOutEndpointDoor()
+			player.velocity = Vector2(0,0)
+			player.isPlayerLocked = true
+			player.playerMotionMode = player.playerMotionStates.idle
+			player.fade_out()
