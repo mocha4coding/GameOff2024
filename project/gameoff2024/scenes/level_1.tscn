@@ -530,10 +530,10 @@ position = Vector2(3440, -268)
 texture = ExtResource("6_revey")
 
 [node name="LineEdit" type="LineEdit" parent="PopUps/GatePuzzle/Sprite2D"]
-offset_left = -60.0
-offset_top = 186.0
-offset_right = 84.0
-offset_bottom = 235.0
+offset_left = -58.0
+offset_top = 192.0
+offset_right = 86.0
+offset_bottom = 241.0
 theme_override_constants/outline_size = 2
 theme_override_constants/minimum_character_width = 4
 theme_override_fonts/font = SubResource("FontVariation_lcied")
