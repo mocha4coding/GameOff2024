@@ -499,7 +499,7 @@ _data = {
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_hqld2")
-metadata/_edit_vertical_guides_ = [0.0, 14156.0, 14156.0]
+metadata/_edit_vertical_guides_ = [0.0, 14156.0, 14156.0, 12197.0, 12196.0]
 
 [node name="PopUps" type="Node2D" parent="."]
 
@@ -598,7 +598,7 @@ centered = false
 anchor_mode = 0
 zoom = Vector2(0.51, 0.51)
 limit_left = 5
-limit_right = 14156
+limit_right = 12196
 script = ExtResource("5_e18g0")
 TargetNode = NodePath("../Player")
 
@@ -669,7 +669,8 @@ offset_right = 140.0
 offset_bottom = 48.0
 
 [node name="InstructionsScreen" parent="CanvasLayer" instance=ExtResource("21_0hax1")]
-position = Vector2(456, 272)
+position = Vector2(256, 240)
+scale = Vector2(1.475, 1.475)
 
 [node name="EndingScreen" parent="CanvasLayer" instance=ExtResource("22_g8lv4")]
 visible = false
@@ -1028,6 +1029,9 @@ texture = ExtResource("54_3n5a8")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelDecorations/EndingPalace/EndPointPlayerDetector"]
 position = Vector2(13820, 871)
 shape = SubResource("CircleShape2D_7tsar")
+
+[node name="EndpointPosition" type="Marker2D" parent="LevelDecorations/EndingPalace"]
+position = Vector2(13824, 871)
 
 [node name="Box" parent="." instance=ExtResource("20_ittnv")]
 position = Vector2(2056, 633)

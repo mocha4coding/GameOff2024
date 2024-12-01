@@ -17,6 +17,7 @@ extends Node2D
 @onready var StartScreenOverlay: Button = $CanvasLayer/StartScreen/Overlay
 @onready var play_button_sprite: Sprite2D = $CanvasLayer/StartScreen/PlayButton
 @onready var ending_screen: Node2D = $CanvasLayer/EndingScreen
+@onready var endpoint_position: Marker2D = $LevelDecorations/EndingPalace/EndpointPosition
 
 var playerInGroundFloor: bool = true
 var barrelVisible: bool = false
@@ -72,7 +73,7 @@ func fadeOutEndpointDoor():
 	var tween = get_tree().create_tween()
 	tween.tween_property(endpointDoorClosed, "modulate:a", 0.0, 3.0)
 	await tween.finished
-	player.position.x = endpointDoorClosed.position.x
+	player.global_position.x = endpoint_position.global_position.x
 	player.fade_out()
 	ending_screen.show()
 	tween.tween_property(ending_screen, "modulate:a", 1.0, 3.0)
