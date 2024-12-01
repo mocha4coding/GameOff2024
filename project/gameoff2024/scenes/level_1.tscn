@@ -158,7 +158,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-971, -864), Vector2(-971, -480)]
+"values": [Vector2(-1233, -856), Vector2(-1223, -480)]
 }
 
 [sub_resource type="Animation" id="Animation_krru8"]
@@ -174,7 +174,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-971, -480), Vector2(-971, -864)]
+"values": [Vector2(-1223, -480), Vector2(-1223, -864)]
 }
 
 [sub_resource type="Animation" id="Animation_2e3qk"]
@@ -189,7 +189,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(3571, -268), Vector2(3571, 272)]
+"values": [Vector2(3571, -268), Vector2(3571, 137)]
 }
 
 [sub_resource type="Animation" id="Animation_npw1d"]
@@ -204,7 +204,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(3571, 272), Vector2(3571, -268)]
+"values": [Vector2(3571, 137), Vector2(3571, -268)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fmvem"]
