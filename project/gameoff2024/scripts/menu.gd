@@ -1,4 +1,5 @@
 extends Node2D
+@onready var menu_icon: Sprite2D = $MenuIcon
 
 @onready var menu_details: Sprite2D = $MenuDetails
 var isButtonEnabled: bool = false
@@ -22,3 +23,11 @@ func _on_menu_button_pressed() -> void:
 
 func _on_restart_button_pressed() -> void:
 	get_tree().reload_current_scene()
+
+
+func _on_menu_button_mouse_entered() -> void:
+	menu_icon.scale = Vector2(1.1, 1.1)
+
+
+func _on_menu_button_mouse_exited() -> void:
+	menu_icon.scale = Vector2(1, 1)

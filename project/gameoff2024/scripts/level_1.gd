@@ -14,6 +14,8 @@ extends Node2D
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var naagraj_mandir: Node2D = $LevelDecorations/NaagrajMandir
 @onready var endpointDoorClosed: Sprite2D = $LevelDecorations/EndingPalace/Door
+@onready var StartScreenOverlay: Button = $CanvasLayer/StartScreen/Overlay
+@onready var play_button_sprite: Sprite2D = $CanvasLayer/StartScreen/PlayButton
 
 var playerInGroundFloor: bool = true
 var barrelVisible: bool = false
@@ -44,6 +46,8 @@ func _process(delta: float) -> void:
 		level_1_animation_player_general.play("templeCoverDown")
 		camera_2d.apply_shake()
 		
+	
+		
 func _on_level_1_animation_player_general_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "bring_barrel":
 		barrel_animation_player.play("roll")
@@ -64,6 +68,7 @@ func _on_play_button_pressed() -> void:
 func fadeOutEndpointDoor():
 	var tween = get_tree().create_tween()
 	tween.tween_property(endpointDoorClosed, "modulate:a", 0.0, 3.0)
+	player.fade_out()
 
 func _on_end_point_player_detector_body_entered(body: Node2D) -> void:
 	if body is Player:
@@ -75,4 +80,12 @@ func _on_end_point_player_detector_body_entered(body: Node2D) -> void:
 			player.velocity = Vector2(0,0)
 			player.isPlayerLocked = true
 			player.playerMotionMode = player.playerMotionStates.idle
-			player.fade_out()
+			
+
+
+func _on_play_button_mouse_entered() -> void:
+	play_button_sprite.scale = Vector2(1.1,1.1)
+
+
+func _on_play_button_mouse_exited() -> void:
+	play_button_sprite.scale = Vector2(1,1)
