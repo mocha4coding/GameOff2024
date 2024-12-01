@@ -6,7 +6,7 @@ extends Camera2D
 @export var smoothness: float = 5.0 # Higher values make movement smoother
 
 @export var randomShakeStrenght: float = 20.0
-@export var shakeFade: float = 5.0
+var shakeFade: float = 5.0
 
 var randomNumberGenerator = RandomNumberGenerator.new()
 var overallShakeStrength : float = 0.0
@@ -64,7 +64,8 @@ func _process(delta: float) -> void:
 	)
 	set_position(smoothed_position)
 
-func apply_shake():
+func apply_shake(shakeFadeVal: float = shakeFade):
+	shakeFade = shakeFadeVal
 	overallShakeStrength = randomShakeStrenght
 
 func random_offset():

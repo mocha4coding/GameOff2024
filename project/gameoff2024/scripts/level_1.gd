@@ -37,7 +37,9 @@ func _process(delta: float) -> void:
 	
 	if compass_rotateable.bringBarrels == true && barrelVisible == false:
 		barrelVisible = true
+		camera_2d.apply_shake(1)
 		level_1_animation_player_general.play("bring_barrel")
+		camera_2d.apply_shake(1)
 		
 	if naagraj_puzzle.isPuzzleSolved:
 		if !isNaagmaniShown:

@@ -158,7 +158,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-1233, -856), Vector2(-1223, -480)]
+"values": [Vector2(-1277, -856), Vector2(-1277, -480)]
 }
 
 [sub_resource type="Animation" id="Animation_krru8"]
@@ -174,7 +174,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-1223, -480), Vector2(-1223, -864)]
+"values": [Vector2(-1277, -480), Vector2(-1277, -864)]
 }
 
 [sub_resource type="Animation" id="Animation_2e3qk"]
@@ -455,7 +455,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, 227), Vector2(0, 11)]
+"values": [Vector2(0, 227), Vector2(-2, 43)]
 }
 
 [sub_resource type="Animation" id="Animation_ocvug"]
@@ -682,11 +682,13 @@ z_index = 1
 position = Vector2(1365, 669)
 
 [node name="Sprite2D3" type="Sprite2D" parent="LevelDecorations/floor"]
+z_index = 1
 position = Vector2(1754, 341)
 texture = ExtResource("1_j2l2w")
 
 [node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/floor/Sprite2D3"]
-position = Vector2(241, -3)
+z_index = 1
+position = Vector2(246, 2)
 texture = ExtResource("1_j2l2w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelDecorations/floor"]
@@ -702,14 +704,17 @@ position = Vector2(-511, 345)
 texture = ExtResource("1_j2l2w")
 
 [node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/floor/Sprite2D2"]
+z_index = 1
 position = Vector2(575.5, 0)
 texture = ExtResource("1_j2l2w")
 
 [node name="Sprite2D2" type="Sprite2D" parent="LevelDecorations/floor/Sprite2D2"]
+z_index = 1
 position = Vector2(1135.5, 0)
 texture = ExtResource("1_j2l2w")
 
 [node name="Sprite2D" type="Sprite2D" parent="LevelDecorations/floor/Sprite2D2/Sprite2D2"]
+z_index = 1
 position = Vector2(561.5, -1)
 texture = ExtResource("1_j2l2w")
 
@@ -1024,10 +1029,10 @@ position = Vector2(13820, 871)
 shape = SubResource("CircleShape2D_7tsar")
 
 [node name="Box" parent="." instance=ExtResource("20_ittnv")]
-position = Vector2(2074, 629)
+position = Vector2(2056, 633)
 
 [node name="Box2" parent="." instance=ExtResource("20_ittnv")]
-position = Vector2(2103, 511)
+position = Vector2(2037, 515)
 
 [node name="FireFloor" type="Node2D" parent="."]
 
@@ -1173,7 +1178,8 @@ position = Vector2(6888, 966)
 position = Vector2(6960, 966)
 
 [node name="Fire48" parent="FireFloor" instance=ExtResource("22_h4iph")]
-position = Vector2(7026, 973)
+position = Vector2(7031, 991)
+scale = Vector2(0.944444, 0.817708)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="FireFloor"]
 

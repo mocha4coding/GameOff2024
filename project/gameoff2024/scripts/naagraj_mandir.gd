@@ -10,6 +10,8 @@ var enemies: Array[Enemy]
 @onready var front_wall: Sprite2D = $FrontWall
 @onready var naagmandir_wheel: Node2D = $NaagmandirWheel
 var player: Player = null
+@onready var camera_2d: Camera2D = $"../../Camera2D"
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	enemies.append(enemy_1)
@@ -34,7 +36,7 @@ func _on_player_detector_body_entered(body: Node2D) -> void:
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "placeGemOnNaagraj":
-	
+		camera_2d.apply_shake(5)
 		for enemy in enemies:
 			enemy.isEnemyUnlocked = true
 		animation_player.play("attackInstructionScrollDown")
