@@ -19,6 +19,8 @@ extends Node2D
 @onready var ending_screen: Node2D = $CanvasLayer/EndingScreen
 @onready var endpoint_position: Marker2D = $LevelDecorations/EndingPalace/EndpointPosition
 @onready var naagraj_puzzle_player_detector: Area2D = $LevelDecorations/FireLavaShelter/NaagrajPuzzlePlayerDetector
+@onready var background_music_sfx: AudioStreamPlayer = $backgroundMusic_sfx
+@onready var earthquake_sfx: AudioStreamPlayer = $earthquake_sfx
 
 var playerInGroundFloor: bool = true
 var barrelVisible: bool = false
@@ -27,10 +29,12 @@ var isNaagmandirCoverDown: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	ending_screen.hide()
-
+	background_music_sfx.play()
 				 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if background_music_sfx.playing == false:
+		background_music_sfx.play()
 	if animatable_door.isGateOpen && playerInGroundFloor:
 		player.fade_out()
 		player.global_position = Vector2(player.global_position.x, palace_first_floor_spawn_point.global_position.y)
@@ -46,9 +50,13 @@ func _process(delta: float) -> void:
 	if naagraj_puzzle.isPuzzleSolved:
 		if !isNaagmaniShown:
 			level_1_animation_player_general.play("naagmaniStandRise")
+			if earthquake_sfx.playing == false:
+				earthquake_sfx.play()
 
 	if naagmandir_wheel.isWheelRotated == true && isNaagmandirCoverDown == false:
 		level_1_animation_player_general.play("templeCoverDown")
+		if earthquake_sfx.playing == false:
+				earthquake_sfx.play()
 		camera_2d.apply_shake()
 		
 	
@@ -60,11 +68,14 @@ func _on_level_1_animation_player_general_animation_finished(anim_name: StringNa
 	if anim_name == "naagmaniStandRise":
 		isNaagmaniShown = true
 		naagmani.isNaagmaniStandShown = true
+		earthquake_sfx.stop()
+		earthquake_sfx.playing = false
 	
 	if anim_name == "templeCoverDown":
 		isNaagmandirCoverDown = true
 		naagmandir_front_wall.queue_free()
-
+		earthquake_sfx.stop()
+		earthquake_sfx.playing = false
 
 func _on_play_button_pressed() -> void:
 	start_screen.queue_free()

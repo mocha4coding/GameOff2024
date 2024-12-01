@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=106 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -65,6 +65,8 @@
 [ext_resource type="Texture2D" uid="uid://bcyj40kl5pnp" path="res://assets/decorations/SerpentKingGlow.png" id="51_4v5g2"]
 [ext_resource type="Script" path="res://scripts/ending_palace.gd" id="51_jw6wi"]
 [ext_resource type="Texture2D" uid="uid://c5hjh6bh43udh" path="res://assets/decorations/level_end_door_open.png" id="54_3n5a8"]
+[ext_resource type="AudioStream" uid="uid://cesri3280hgac" path="res://assets/audio/earthquakeSound.mp3" id="56_gr42x"]
+[ext_resource type="AudioStream" uid="uid://dl7x3w5hk3y2n" path="res://assets/audio/backgroundmusic.mp3" id="66_c0trd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4hxtl"]
 radius = 116.709
@@ -515,22 +517,6 @@ tracks/1/keys = {
 "values": [Vector2(4954, -163), Vector2(4954, 178)]
 }
 
-[sub_resource type="Animation" id="Animation_dsw0j"]
-resource_name = "templeCoverDown"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LevelDecorations/NaagrajMandir/FrontWall:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(9615, 698), Vector2(9615, 1526)]
-}
-
 [sub_resource type="Animation" id="Animation_sgp1m"]
 resource_name = "naagrajPuzzleInstructionShow"
 length = 4.0
@@ -545,6 +531,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(4940, -147), Vector2(4940, 156), Vector2(4940, 156), Vector2(4940, -147)]
+}
+
+[sub_resource type="Animation" id="Animation_dsw0j"]
+resource_name = "templeCoverDown"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LevelDecorations/NaagrajMandir/FrontWall:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(9615, 698), Vector2(9615, 1526)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_whbnp"]
@@ -1334,6 +1336,12 @@ libraries = {
 [node name="SpanwPointObstacle" parent="." instance=ExtResource("31_5afwi")]
 position = Vector2(1176, 870)
 mass = 2.0
+
+[node name="backgroundMusic_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("66_c0trd")
+
+[node name="earthquake_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("56_gr42x")
 
 [connection signal="body_entered" from="PopUps/PressEToInteract/PlayerDetector" to="PopUps/PressEToInteract" method="_on_player_detector_body_entered"]
 [connection signal="body_exited" from="PopUps/PressEToInteract/PlayerDetector" to="PopUps/PressEToInteract" method="_on_player_detector_body_exited"]

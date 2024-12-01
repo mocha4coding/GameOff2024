@@ -14,6 +14,8 @@ var player: Player = null
 @onready var naagraj_glow: Sprite2D = $Naagraj/NaagrajGlow
 var randomNumberGenerator = RandomNumberGenerator.new()
 var naagrajGlowActivated: bool = false
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	enemies.append(enemy_1)

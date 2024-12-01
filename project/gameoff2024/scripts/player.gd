@@ -11,6 +11,9 @@ var logtag :String = "PlayerScript"
 @onready var sword_attack_area_right_spawn_point: Marker2D = $SwordAttackAreaRightSpawnPoint
 @onready var sword_attack_area_left_spawn_point: Marker2D = $SwordAttackAreaLeftSpawnPoint
 @onready var sword_attack_area: Area2D = $SwordAttackArea
+@onready var player_audio_player: AudioStreamPlayer = $playerAudioPlayer
+@onready var object_push_sfx: AudioStreamPlayer = $objectPush_sfx
+
 var isPlayerLocked: bool = true
 var collectibles: Array = []
 enum playerMotionStates {
@@ -41,6 +44,7 @@ func _physics_process(delta: float) -> void:
 		handleVerticalMotion()
 		handleHorizontalMotion()
 		handleAttack()
+		handlePlayerAudio()
 	handlePlayerAnimationSprite()
 	syncPlayerHealthWithHealthBar()
 
@@ -100,7 +104,21 @@ func otherAnimationPlayingWhileIdle() -> bool:
 		return true
 		
 	return false
-	
+
+func handlePlayerAudio() -> void:
+	if playerMotionMode == playerMotionStates.walk:
+		print("walk playing")
+		if player_audio_player.playing == false:
+
+			player_audio_player.play()
+	elif playerMotionMode == playerMotionStates.pushPull:
+		if object_push_sfx.playing == false:
+			object_push_sfx.play()
+	else:
+		player_audio_player.stream_paused = true
+		print("walk not playing")
+		
+
 func handlePlayerAnimationSprite() -> void:
 	if playerMotionMode ==  playerMotionStates.idle:
 		animated_sprite_2d.play("idle")

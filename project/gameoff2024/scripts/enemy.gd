@@ -19,6 +19,8 @@ var playerInHitBox: bool = false
 var enemyMotionMode: enemyMotionStates = enemyMotionStates.idleMotion
 var isEnemyUnlocked: bool = false
 var isDead: bool = false
+@onready var armorwalk_sfx: AudioStreamPlayer = $armorwalk
+
 enum enemyMotionStates {
 	idleFrozen,
 	idleMotion,
@@ -92,6 +94,8 @@ func handlePlayerChase(delta):
 	
 	global_position.x += enemyDirection.x * timeTakenToMove * delta
 	animated_sprite_2d.play("walk")
+	if armorwalk_sfx.playing == false:
+		armorwalk_sfx.play()
 
 
 
