@@ -11,6 +11,8 @@ extends Node2D
 @onready var naagmandir_front_wall: Sprite2D = $LevelDecorations/NaagrajMandir/FrontWall
 @onready var naagmandir_wheel: Node2D = $LevelDecorations/NaagrajMandir/NaagmandirWheel
 @onready var start_screen: Node2D = $CanvasLayer/StartScreen
+@onready var camera_2d: Camera2D = $Camera2D
+
 var playerInGroundFloor: bool = true
 var barrelVisible: bool = false
 var isNaagmaniShown: bool = false
@@ -38,6 +40,7 @@ func _process(delta: float) -> void:
 
 	if naagmandir_wheel.isWheelRotated == true && isNaagmandirCoverDown == false:
 		level_1_animation_player_general.play("templeCoverDown")
+		camera_2d.apply_shake()
 		
 func _on_level_1_animation_player_general_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "bring_barrel":

@@ -4,6 +4,13 @@ extends Camera2D
 @export var right_drag_threshold: float = 100.0 # Threshold for right movement
 @export var horizontal_offset: float = 160.0 # Horizontal offset for the camera
 @export var smoothness: float = 5.0 # Higher values make movement smoother
+
+@export var randomShakeStrenght: float = 20.0
+@export var shakeFade: float = 5.0
+
+var randomNumberGenerator = RandomNumberGenerator.new()
+var overallShakeStrength : float = 0.0
+
 var left_offset : float = 1080 - 160
 var right_offset : float = 160
 var current_position: Vector2 = Vector2.ZERO
@@ -16,7 +23,13 @@ func _ready():
 		current_position = Vector2(TargetNode.position.x - horizontal_offset, position.y)
 		set_position(current_position)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	
+	if overallShakeStrength > 0:
+		overallShakeStrength = lerpf(overallShakeStrength, 0, shakeFade * delta)
+		offset = random_offset()
+		
+	
 	if TargetNode == null:
 		set_position(current_position)
 		return
@@ -46,7 +59,14 @@ func _process(_delta: float) -> void:
 
 	# Smoothly interpolate to the new position
 	var smoothed_position = Vector2(
-		lerp(position.x, current_position.x, smoothness * _delta),
+		lerp(position.x, current_position.x, smoothness * delta),
 		position.y
 	)
 	set_position(smoothed_position)
+
+func apply_shake():
+	overallShakeStrength = randomShakeStrenght
+
+func random_offset():
+	return Vector2(randomNumberGenerator.randf_range(-overallShakeStrength, overallShakeStrength),randomNumberGenerator.randf_range(-overallShakeStrength, overallShakeStrength))
+	
