@@ -18,6 +18,7 @@ extends Node2D
 @onready var play_button_sprite: Sprite2D = $CanvasLayer/StartScreen/PlayButton
 @onready var ending_screen: Node2D = $CanvasLayer/EndingScreen
 @onready var endpoint_position: Marker2D = $LevelDecorations/EndingPalace/EndpointPosition
+@onready var naagraj_puzzle_player_detector: Area2D = $LevelDecorations/FireLavaShelter/NaagrajPuzzlePlayerDetector
 
 var playerInGroundFloor: bool = true
 var barrelVisible: bool = false
@@ -97,3 +98,9 @@ func _on_play_button_mouse_entered() -> void:
 
 func _on_play_button_mouse_exited() -> void:
 	play_button_sprite.scale = Vector2(1,1)
+
+
+func _on_naagraj_puzzle_player_detector_body_entered(body: Node2D) -> void:
+	if body is Player:
+		level_1_animation_player_general.play("naagrajPuzzleInstructionShow")
+		naagraj_puzzle_player_detector.queue_free()
