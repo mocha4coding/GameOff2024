@@ -971,7 +971,7 @@ isAnimatedSpriteFliiped = true
 
 [node name="NaagmandirWheel" parent="LevelDecorations/NaagrajMandir" instance=ExtResource("44_yeent")]
 z_index = -5
-position = Vector2(7442, 827)
+position = Vector2(8218, 827)
 
 [node name="FrontWall" type="Sprite2D" parent="LevelDecorations/NaagrajMandir"]
 z_index = 1
