@@ -24,7 +24,7 @@ texture = ExtResource("2_wdp6y")
 
 [node name="PlayAgainButtonicon" type="Sprite2D" parent="."]
 position = Vector2(475, 399)
-scale = Vector2(0.675, 0.675)
+scale = Vector2(0.475, 0.475)
 texture = ExtResource("4_c861a")
 
 [node name="PlayAgainButton" type="Button" parent="PlayAgainButtonicon"]
