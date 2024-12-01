@@ -16,6 +16,7 @@ extends Node2D
 @onready var endpointDoorClosed: Sprite2D = $LevelDecorations/EndingPalace/Door
 @onready var StartScreenOverlay: Button = $CanvasLayer/StartScreen/Overlay
 @onready var play_button_sprite: Sprite2D = $CanvasLayer/StartScreen/PlayButton
+@onready var ending_screen: Node2D = $CanvasLayer/EndingScreen
 
 var playerInGroundFloor: bool = true
 var barrelVisible: bool = false
@@ -23,7 +24,7 @@ var isNaagmaniShown: bool = false
 var isNaagmandirCoverDown: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	ending_screen.hide()
 
 				 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -71,6 +72,8 @@ func fadeOutEndpointDoor():
 	await tween.finished
 	player.position.x = endpointDoorClosed.position.x
 	player.fade_out()
+	ending_screen.show()
+	tween.tween_property(ending_screen, "modulate:a", 1.0, 3.0)
 
 func _on_end_point_player_detector_body_entered(body: Node2D) -> void:
 	if body is Player:

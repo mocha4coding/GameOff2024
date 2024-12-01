@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://r2807tpuvdkc"]
+
+[ext_resource type="Texture2D" uid="uid://d2t7plks85qbd" path="res://assets/ui/Congratulations title.png" id="1_k6o5y"]
+[ext_resource type="Texture2D" uid="uid://c638lmc6uctsq" path="res://assets/ui/ContentEnding.png" id="2_wdp6y"]
+
+[node name="EndingScreen" type="Node2D"]
+
+[node name="Label" type="Button" parent="."]
+offset_right = 962.0
+offset_bottom = 538.0
+
+[node name="Title" type="Sprite2D" parent="Label"]
+position = Vector2(470, 184)
+scale = Vector2(0.626904, 0.626904)
+texture = ExtResource("1_k6o5y")
+
+[node name="Content" type="Sprite2D" parent="Label"]
+position = Vector2(484, 290)
+scale = Vector2(0.566, 0.566)
+texture = ExtResource("2_wdp6y")

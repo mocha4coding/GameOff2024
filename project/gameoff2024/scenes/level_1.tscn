@@ -1,4 +1,4 @@
-[gd_scene load_steps=98 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=99 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -34,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://b0fob8yup7sgl" path="res://assets/ui/Play.png" id="20_i1vjy"]
 [ext_resource type="PackedScene" uid="uid://bvj4yyx776uyu" path="res://scenes/box.tscn" id="20_ittnv"]
 [ext_resource type="PackedScene" uid="uid://gcam06lqllll" path="res://scenes/instructions_screen.tscn" id="21_0hax1"]
+[ext_resource type="PackedScene" uid="uid://r2807tpuvdkc" path="res://scenes/ending_screen.tscn" id="22_g8lv4"]
 [ext_resource type="PackedScene" uid="uid://dsp0hlu5hy6a1" path="res://scenes/fire.tscn" id="22_h4iph"]
 [ext_resource type="Texture2D" uid="uid://oilhml5ldyd1" path="res://assets/decorations/medusa.png" id="22_ouerp"]
 [ext_resource type="Texture2D" uid="uid://d1r6jglrc56qc" path="res://assets/decorations/firstfloorwall.png" id="23_rwylf"]
@@ -669,6 +670,10 @@ offset_bottom = 48.0
 
 [node name="InstructionsScreen" parent="CanvasLayer" instance=ExtResource("21_0hax1")]
 position = Vector2(456, 272)
+
+[node name="EndingScreen" parent="CanvasLayer" instance=ExtResource("22_g8lv4")]
+visible = false
+scale = Vector2(2, 2)
 
 [node name="LevelDecorations" type="Node2D" parent="."]
 
