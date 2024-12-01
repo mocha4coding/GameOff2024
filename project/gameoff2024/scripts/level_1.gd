@@ -68,6 +68,8 @@ func _on_play_button_pressed() -> void:
 func fadeOutEndpointDoor():
 	var tween = get_tree().create_tween()
 	tween.tween_property(endpointDoorClosed, "modulate:a", 0.0, 3.0)
+	await tween.finished
+	player.position.x = endpointDoorClosed.position.x
 	player.fade_out()
 
 func _on_end_point_player_detector_body_entered(body: Node2D) -> void:
