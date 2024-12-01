@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://jphhsxyxg3o0"]
+[gd_scene load_steps=94 format=3 uid="uid://jphhsxyxg3o0"]
 
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_hqld2"]
 [ext_resource type="PackedScene" uid="uid://devkms374nn81" path="res://scenes/player.tscn" id="1_icsw8"]
@@ -57,6 +57,7 @@
 [ext_resource type="Texture2D" uid="uid://ctcr4cvmk0min" path="res://assets/decorations/level_end_door.png" id="42_3axhe"]
 [ext_resource type="PackedScene" uid="uid://cdi4i23l4oryo" path="res://scenes/naagmandir_wheel.tscn" id="44_yeent"]
 [ext_resource type="Texture2D" uid="uid://dycdq5d80cgkl" path="res://assets/interactables/NaagmandirCoverWall.png" id="45_qytny"]
+[ext_resource type="Texture2D" uid="uid://boi6mynef8dx1" path="res://assets/interactables/spaceBar.png" id="50_1s61p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4hxtl"]
 radius = 116.709
@@ -254,6 +255,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [0.677188]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../AttackInstruction:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9621, -247)]
+}
 
 [sub_resource type="Animation" id="Animation_oko2m"]
 resource_name = "placeGemOnNaagraj"
@@ -283,9 +296,26 @@ tracks/1/keys = {
 "values": [0.0, 0.677188]
 }
 
+[sub_resource type="Animation" id="Animation_ogg3f"]
+resource_name = "attackInstructionScrollDown"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AttackInstruction:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(9621, -247), Vector2(9621, 231), Vector2(9621, 231), Vector2(9621, -264)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2efhp"]
 _data = {
 "RESET": SubResource("Animation_1mndv"),
+"attackInstructionScrollDown": SubResource("Animation_ogg3f"),
 "placeGemOnNaagraj": SubResource("Animation_oko2m")
 }
 
@@ -914,6 +944,7 @@ z_index = -5
 position = Vector2(7442, 827)
 
 [node name="FrontWall" type="Sprite2D" parent="LevelDecorations/NaagrajMandir"]
+visible = false
 z_index = 1
 position = Vector2(9615, 698)
 texture = ExtResource("45_qytny")
@@ -923,6 +954,11 @@ texture = ExtResource("45_qytny")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelDecorations/NaagrajMandir/FrontWall/StaticBody2D"]
 position = Vector2(-0.5, 1.5)
 shape = SubResource("RectangleShape2D_esqvm")
+
+[node name="AttackInstruction" type="Sprite2D" parent="LevelDecorations/NaagrajMandir"]
+z_index = 2
+position = Vector2(9621, -247)
+texture = ExtResource("50_1s61p")
 
 [node name="EndingPalace" type="Node2D" parent="LevelDecorations"]
 

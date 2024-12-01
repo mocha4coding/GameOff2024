@@ -9,7 +9,7 @@ var enemies: Array[Enemy]
 @onready var naagraj_player_detector: Area2D = $Naagraj/PlayerDetector
 @onready var front_wall: Sprite2D = $FrontWall
 @onready var naagmandir_wheel: Node2D = $NaagmandirWheel
-
+var player: Player = null
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	enemies.append(enemy_1)
@@ -29,12 +29,14 @@ func _on_player_detector_body_entered(body: Node2D) -> void:
 		#hardcoding will change later
 		if body.collectibles.size() != 0 :
 			animation_player.play("placeGemOnNaagraj")
+			
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "placeGemOnNaagraj":
+	
 		for enemy in enemies:
 			enemy.isEnemyUnlocked = true
-	
+		animation_player.play("attackInstructionScrollDown")
 		naagraj_player_detector.queue_free()
 		
