@@ -995,6 +995,7 @@ position = Vector2(9621, -247)
 texture = ExtResource("50_1s61p")
 
 [node name="EndingPalace" type="Node2D" parent="LevelDecorations"]
+position = Vector2(-2112, 0)
 script = ExtResource("51_jw6wi")
 
 [node name="Palace" type="Sprite2D" parent="LevelDecorations/EndingPalace"]
